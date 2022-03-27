@@ -1,5 +1,5 @@
-#Mastersquirrel
+# Mastersquirrel
 
-##How to play
+## How to play
 - Cheese
 - more Cheese
