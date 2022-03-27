@@ -1,4 +1,4 @@
-public abstract class AEntity implements Comparable{
+public abstract class AEntity{
     private static int entityCount = 0;
 
     protected int genID(){
