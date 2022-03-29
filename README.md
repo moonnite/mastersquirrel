@@ -4,7 +4,7 @@
 - Run main method of "Main" class
 
 ## Class structure (good looking)
-![alt text](src.PNG)
+![alt text](class.png)
 
 ## Class structure UML (bad looking)
-![alt text](uml.PNG)
+![alt text](uml.png)
