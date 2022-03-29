@@ -1,4 +1,4 @@
-public class Position {
+public final class Position {
 
     private final int xPos;
     private final int yPos;
@@ -23,7 +23,7 @@ public class Position {
         return xPos;
     }
 
-    private Position addPosition(Position p1, Position p2){
+    public Position addPosition(Position p1, Position p2){
         return new Position(p1.getXPos()+p2.getXPos(),p1.getYPos()+p2.getYPos());
     }
 

@@ -45,4 +45,5 @@ public abstract class AEntity implements IEntity{
                 ", energy=" + energy +
                 '}';
     }
+
 }
