@@ -4,7 +4,7 @@ public class RandomDirection {
 
     private static final RandomDirection randomDir;
     private static final Position[] dirArray = new Position[8];
-    private Random random;
+    private Random random = new Random();
 
     //private constructor -> can't be initialized from other classes
     private RandomDirection(){
@@ -32,7 +32,6 @@ public class RandomDirection {
     }
 
     public int randomInt(){
-        return random.nextInt();
+        return random.nextInt(0,10);
     }
-
 }

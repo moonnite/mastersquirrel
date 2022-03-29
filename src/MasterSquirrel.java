@@ -5,7 +5,7 @@ public class MasterSquirrel extends Squirrel{
 
     @Override
     public void nextStep() {
-
+        super.nextStep();
     }
 
     @Override
@@ -18,11 +18,10 @@ public class MasterSquirrel extends Squirrel{
 
     }
 
-    public void giveEnergyToMiniSquirrel(MiniSquirrel mS, int energy){
+    public void spawnMiniSquirrel(int energy){
         //only donate energy when player squirrel has enough energy
         if(this.energy < energy) return;
-
-        mS.updateEnergy(energy);
+        MiniSquirrel ms = new MiniSquirrel(energy);
         updateEnergy(-energy);
     }
 }

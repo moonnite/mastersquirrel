@@ -2,15 +2,19 @@ public abstract class AEntity implements IEntity{
     private static int entityCount = 0;
 
     protected int ID;
+    protected final String type;
     protected Position position;
     protected final int startEnergy;
     protected int energy;
-
 
     protected AEntity (int startEnergy){
         ID = entityCount++;
         this.startEnergy = startEnergy;
         position = new Position();
+        type = this.getClass().getSimpleName();
+
+        //Handle List
+        EntityList.getInstance().put(this);
     }
 
     public int getID(){
@@ -35,7 +39,9 @@ public abstract class AEntity implements IEntity{
     public String toString() {
         return "AEntity{" +
                 "ID=" + ID +
+                ", type='" + type + '\'' +
                 ", position=" + position +
+                ", startEnergy=" + startEnergy +
                 ", energy=" + energy +
                 '}';
     }

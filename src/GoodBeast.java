@@ -6,7 +6,7 @@ public class GoodBeast extends Movable{
 
     @Override
     public void nextStep() {
-
+        super.nextStep();
     }
 
     @Override

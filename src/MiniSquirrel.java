@@ -1,6 +1,6 @@
 public class MiniSquirrel extends Squirrel{
-    public MiniSquirrel(){
-        super(150);
+    public MiniSquirrel(int energy){
+        super(energy);
     }
     @Override
     public void nextStep() {

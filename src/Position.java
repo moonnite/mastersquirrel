@@ -30,4 +30,9 @@ public class Position {
     public Position genNewDir(){
         return random.getRandom();
     }
+
+    @Override
+    public String toString() {
+        return "X: "+xPos+" Y: " + yPos;
+    }
 }
