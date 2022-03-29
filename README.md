@@ -7,4 +7,4 @@
 ![alt text](class.png)
 
 ## Class structure UML (bad looking)
-![alt text](uml.png)
+![alt text2](uml.png)
