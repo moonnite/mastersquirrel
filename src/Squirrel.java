@@ -1,3 +1,5 @@
-public abstract class Squirrel extends AEntity implements IEntity {
-
+public abstract class Squirrel extends Movable{
+    protected Squirrel(int e) {
+        super(e);
+    }
 }

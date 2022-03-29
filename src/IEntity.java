@@ -1,7 +1,6 @@
-public interface IEntity{
-
+public interface IEntity extends Comparable{
+    //warum nicht diese beiden Methoden gleich in die abstract class als abstract methoden und extends Comparable
     void nextStep();
-    void updateEnergy(int energyDelta);
     void updatePosition(Position pos);
 
 }

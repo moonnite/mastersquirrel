@@ -1,7 +1,7 @@
-public class BadPlant extends NoneMovable{
+public class BadBeast extends Movable{
 
-    public BadPlant(){
-        super(-300);
+    public BadBeast(){
+        super(-150);
     }
 
     @Override

@@ -10,6 +10,11 @@ public class Position {
         this.yPos = yPos;
     }
 
+    public Position(){
+        this.xPos = random.randomInt();
+        this.yPos = random.randomInt();
+    }
+
     public int getYPos() {
         return yPos;
     }
