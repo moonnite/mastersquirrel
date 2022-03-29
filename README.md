@@ -1,5 +1,4 @@
 # Mastersquirrel
 
 ## How to play
-- Cheese
-- more Cheese
+- Run main method of "Main" class
