@@ -1,4 +1,7 @@
 public class MiniSquirrel extends Squirrel{
+    public MiniSquirrel(){
+        super(150);
+    }
     @Override
     public void nextStep() {
 

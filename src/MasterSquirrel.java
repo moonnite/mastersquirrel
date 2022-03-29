@@ -1,4 +1,8 @@
 public class MasterSquirrel extends Squirrel{
+    public MasterSquirrel(){
+        super(500);
+    }
+
     @Override
     public void nextStep() {
 

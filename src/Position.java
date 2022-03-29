@@ -27,7 +27,7 @@ public class Position {
         return new Position(p1.getXPos()+p2.getXPos(),p1.getYPos()+p2.getYPos());
     }
 
-    public Position genNewPos(){
+    public Position genNewDir(){
         return random.getRandom();
     }
 }

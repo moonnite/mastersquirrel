@@ -31,4 +31,8 @@ public class RandomDirection {
         return dirArray[random.nextInt(0,7)];
     }
 
+    public int randomInt(){
+        return random.nextInt();
+    }
+
 }
