@@ -1,7 +1,7 @@
 public abstract class AEntity implements IEntity{
     private static int entityCount = 0;
 
-    protected int ID;
+    protected final int ID;
     protected final String type;
     protected Position position;
     protected final int startEnergy;
