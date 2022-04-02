@@ -1,5 +1,5 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
         GoodBeast goodBeast1 = new GoodBeast();
         BadBeast badBeast1 = new BadBeast();
@@ -9,12 +9,15 @@ public class Main {
         HandOperatedMasterSquirrel playerSquirrel = new HandOperatedMasterSquirrel();
         Wall wall1 = new Wall();
 
-        EntityList entityList = EntityList.getInstance();
+        EntitySet entitySet = EntitySet.getInstance();
+        entitySet.put(goodBeast1);
+        entitySet.pull(2);
+        entitySet.pull(2);
 
         while(true){
-            System.out.println(entityList.listToString());
-            entityList.nextStep();
-            //playerSquirrel.spawnMiniSquirrel(0);
+            System.out.println(entitySet.listToString());
+            entitySet.nextStep();
+            playerSquirrel.spawnMiniSquirrel(0);
         }
     }
 }

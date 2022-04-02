@@ -14,7 +14,7 @@ public class GoodPlant extends NoneMovable{
     }
 
     @Override
-    public void updatePosition(Position pos) {
+    public void updatePosition(XY pos) {
 
     }
 }

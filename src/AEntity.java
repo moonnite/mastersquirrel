@@ -3,18 +3,18 @@ public abstract class AEntity implements IEntity{
 
     protected int ID;
     protected final String type;
-    protected Position position;
+    protected XY position;
     protected final int startEnergy;
     protected int energy;
 
     protected AEntity (int startEnergy){
         ID = entityCount++;
         this.startEnergy = startEnergy;
-        position = new Position();
+        position = new XY();
         type = this.getClass().getSimpleName();
 
         //Handle List
-        EntityList.getInstance().put(this);
+        EntitySet.getInstance().put(this);
     }
 
     public int getID(){

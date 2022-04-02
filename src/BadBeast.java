@@ -15,7 +15,7 @@ public class BadBeast extends Movable{
     }
 
     @Override
-    public void updatePosition(Position pos) {
+    public void updatePosition(XY pos) {
 
     }
 }

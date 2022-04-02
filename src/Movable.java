@@ -9,7 +9,7 @@ public abstract class Movable extends AEntity {
     }
 
     public void randomMovement(){
-        position = position.addPosition(position, position.genNewDir());
+        position = XY.add(position, position.genNewDir());
     }
 
 }

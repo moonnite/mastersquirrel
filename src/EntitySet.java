@@ -1,21 +1,27 @@
-public class EntityList {
-    private static final EntityList entityList;
+public class EntitySet {
+    private static final EntitySet ENTITY_SET;
     private EntityElement first;
 
-    private EntityList(){
+    private EntitySet(){
         first = null;
     }
 
     static {
-        entityList = new EntityList();
+        ENTITY_SET = new EntitySet();
     }
 
-    public static EntityList getInstance(){
-        return entityList;
+    public static EntitySet getInstance(){
+        return ENTITY_SET;
     }
 
     public AEntity pull(int ID){
-        if(first == null) return null;
+        try{
+            notInList(ID);
+        }
+        catch (ElementNotInListException exc){
+            System.err.println(exc);
+            return null;
+        }
         EntityElement current = first;
         do{
             if(current.getData().getID() == ID){
@@ -44,8 +50,20 @@ public class EntityList {
         return null;
     }
 
+    private void alreadyInList(int ID) throws ElementAlreadyExistsException{
+        if(get(ID) != null){
+            throw new ElementAlreadyExistsException("Element already in List");
+        }
+    }
+
     public void put (AEntity e){
-        if(get(e.getID()) != null) return;
+        try{
+            alreadyInList(e.getID());
+        }
+        catch (ElementAlreadyExistsException exc){
+            System.err.println(exc.toString());
+            return;
+        }
         if(first == null) {
             first = new EntityElement(e);
             return;

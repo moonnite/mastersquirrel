@@ -14,7 +14,7 @@ public class Wall extends NoneMovable{
     }
 
     @Override
-    public void updatePosition(Position pos) {
+    public void updatePosition(XY pos) {
 
     }
 }

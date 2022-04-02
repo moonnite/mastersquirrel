@@ -13,7 +13,7 @@ public class MiniSquirrel extends Squirrel{
     }
 
     @Override
-    public void updatePosition(Position pos) {
+    public void updatePosition(XY pos) {
 
     }
 }

@@ -4,11 +4,6 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
 
     Scanner s = new Scanner(System.in);
 
-    private final Position UP = new Position(0,-1);
-    private final Position DOWN = new Position(0,1);
-    private final Position LEFT = new Position(-1,0);
-    private final Position RIGHT = new Position(1,0);
-
     public HandOperatedMasterSquirrel() {
         super();
     }
@@ -18,16 +13,16 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
         String input = s.nextLine();
         switch(input){
             case "w"-> {
-                position = position.addPosition(position, UP);
+                position = XY.add(position, XY.UP);
             }
             case "a" -> {
-                position = position.addPosition(position, LEFT);
+                position = XY.add(position, XY.LEFT);
             }
             case "s" -> {
-                position = position.addPosition(position, DOWN);
+                position = XY.add(position, XY.DOWN);
             }
             case "d" -> {
-                position = position.addPosition(position, RIGHT);
+                position = XY.add(position, XY.RIGHT);
             }
             default -> {
                 System.out.println("Wrong Input");
