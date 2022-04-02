@@ -3,7 +3,7 @@ package mastersquirrel;
 public abstract class AEntity implements IEntity{
     private static int entityCount = 0;
 
-    protected int ID;
+    protected final int ID;
     protected final String type;
     protected XY position;
     protected final int startEnergy;
