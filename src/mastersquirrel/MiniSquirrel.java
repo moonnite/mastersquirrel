@@ -1,8 +1,9 @@
-public class Wall extends NoneMovable{
-    public Wall(){
-        super(-30);
-    }
+package mastersquirrel;
 
+public class MiniSquirrel extends Squirrel{
+    public MiniSquirrel(int energy){
+        super(energy);
+    }
     @Override
     public void nextStep() {
 

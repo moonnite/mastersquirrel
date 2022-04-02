@@ -1,10 +1,13 @@
-public class MiniSquirrel extends Squirrel{
-    public MiniSquirrel(int energy){
-        super(energy);
+package mastersquirrel;
+
+public class GoodPlant extends NoneMovable{
+    public GoodPlant(){
+        super(150);
     }
+
     @Override
     public void nextStep() {
-
+        //empty
     }
 
     @Override

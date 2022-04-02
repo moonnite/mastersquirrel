@@ -1,3 +1,5 @@
+package mastersquirrel;
+
 public class BadPlant extends NoneMovable{
 
     public BadPlant(){

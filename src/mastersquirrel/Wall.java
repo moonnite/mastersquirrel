@@ -1,11 +1,13 @@
-public class GoodPlant extends NoneMovable{
-    public GoodPlant(){
-        super(150);
+package mastersquirrel;
+
+public class Wall extends NoneMovable{
+    public Wall(){
+        super(-30);
     }
 
     @Override
     public void nextStep() {
-        //empty
+
     }
 
     @Override

@@ -1,7 +1,7 @@
 # Mastersquirrel
 
 ## How to play
-- Run main method of "Main" class
+- Run main method of "mastersquirrel.Main" class
 
 ## Class structure (good looking)
 ![alt text](class.png)

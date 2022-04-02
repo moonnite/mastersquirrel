@@ -1,3 +1,5 @@
+package mastersquirrel;
+
 public abstract class NoneMovable extends AEntity {
 
     protected NoneMovable(int e) {

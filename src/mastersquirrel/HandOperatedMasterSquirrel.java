@@ -1,3 +1,5 @@
+package mastersquirrel;
+
 import java.util.Scanner;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel{

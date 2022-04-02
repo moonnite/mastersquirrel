@@ -1,13 +1,11 @@
+package mastersquirrel;
+
 public class EntitySet {
-    private static final EntitySet ENTITY_SET;
+    private static final EntitySet ENTITY_SET = new EntitySet();
     private EntityElement first;
 
     private EntitySet(){
         first = null;
-    }
-
-    static {
-        ENTITY_SET = new EntitySet();
     }
 
     public static EntitySet getInstance(){
@@ -15,59 +13,52 @@ public class EntitySet {
     }
 
     public AEntity pull(int ID){
-        try{
-            notInList(ID);
+        if(first == null){
+            throw new ElementNotInListException("Element not in List");
         }
-        catch (ElementNotInListException exc){
-            System.err.println(exc);
-            return null;
+
+        if(get(ID) == null) {
+            throw new ElementNotInListException("Element not in List");
         }
         EntityElement current = first;
-        do{
-            if(current.getData().getID() == ID){
-                if(first==current) first = current.getNext();
+        if (current.getData().getID() == ID){
+            first = current.getNext();
+            return current.getData();
+        }
+        while(current != null) {
+            if (current.getData().getID() == ID) {
                 AEntity temp = current.getData();
-                if(current.getPrev() != null) current.getPrev().setNext(current.getNext());
-                if(current.getNext() != null) current.getNext().setPrev(current.getPrev());
+                if (current.getPrev() != null) current.getPrev().setNext(current.getNext());
+                if (current.getNext() != null) current.getNext().setPrev(current.getPrev());
                 return temp;
             }
             current = current.getNext();
-            if(current == null) return null;
-        } while(current.getNext()!=null);
+        }
         return null;
     }
 
     public AEntity get(int ID){
         if(first == null) return null;
         EntityElement current = first;
-        do{
-            if(current.getData().getID() == ID){
+        while(current != null){
+            if(current.getData().getID() == ID) {
                 return current.getData();
             }
             current = current.getNext();
-            if(current == null) return null;
-        } while(current.getNext()!=null);
+        }
         return null;
     }
 
-    private void alreadyInList(int ID) throws ElementAlreadyExistsException{
-        if(get(ID) != null){
-            throw new ElementAlreadyExistsException("Element already in List");
-        }
-    }
 
     public void put (AEntity e){
-        try{
-            alreadyInList(e.getID());
-        }
-        catch (ElementAlreadyExistsException exc){
-            System.err.println(exc.toString());
-            return;
+        if(get(e.getID()) != null){
+            throw new ElementAlreadyExistsException("Element already in List");
         }
         if(first == null) {
             first = new EntityElement(e);
             return;
         }
+
         EntityElement current = first;
         while(current.getNext() != null){
             current = current.getNext();

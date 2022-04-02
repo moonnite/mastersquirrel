@@ -1,10 +1,12 @@
+package mastersquirrel;
+
 import java.util.Random;
 
 public class RandomDirection {
 
     private static final RandomDirection randomDir;
     private static final XY[] dirArray = new XY[8];
-    private Random random = new Random();
+    private final Random random = new Random();
 
     //private constructor -> can't be initialized from other classes
     private RandomDirection(){

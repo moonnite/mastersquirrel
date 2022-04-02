@@ -1,3 +1,5 @@
+package mastersquirrel;
+
 public abstract class AEntity implements IEntity{
     private static int entityCount = 0;
 
@@ -37,7 +39,7 @@ public abstract class AEntity implements IEntity{
 
     @Override
     public String toString() {
-        return "AEntity{" +
+        return "mastersquirrel.AEntity{" +
                 "ID=" + ID +
                 ", type='" + type + '\'' +
                 ", position=" + position +

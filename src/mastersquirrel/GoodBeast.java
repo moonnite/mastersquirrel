@@ -1,7 +1,9 @@
-public class BadBeast extends Movable{
+package mastersquirrel;
 
-    public BadBeast(){
-        super(-150);
+public class GoodBeast extends Movable{
+
+    public GoodBeast(){
+        super(300);
     }
 
     @Override

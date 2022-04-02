@@ -1,3 +1,5 @@
+package mastersquirrel;
+
 public final class XY {
 
     public static final XY UP = new XY(0,-1);
