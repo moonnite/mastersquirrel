@@ -12,14 +12,11 @@ public class Main {
         Wall wall1 = new Wall();
 
         EntitySet entitySet = EntitySet.getInstance();
-        entitySet.put(goodBeast1);
-        entitySet.pull(2);
-        entitySet.pull(2);
 
-        while(true){
-            System.out.println(entitySet.listToString());
-            entitySet.nextStep();
-            playerSquirrel.spawnMiniSquirrel(0);
-        }
+//        while(true){
+//            System.out.println(entitySet.listToString());
+//            entitySet.nextStep();
+//            playerSquirrel.spawnMiniSquirrel(0);
+//        }
     }
 }

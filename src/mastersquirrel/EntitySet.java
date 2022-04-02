@@ -20,6 +20,7 @@ public class EntitySet {
         if(get(ID) == null) {
             throw new ElementNotInListException("Element not in List");
         }
+
         EntityElement current = first;
         if (current.getData().getID() == ID){
             first = current.getNext();
@@ -54,6 +55,7 @@ public class EntitySet {
         if(get(e.getID()) != null){
             throw new ElementAlreadyExistsException("Element already in List");
         }
+
         if(first == null) {
             first = new EntityElement(e);
             return;
