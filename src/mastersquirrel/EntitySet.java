@@ -93,6 +93,18 @@ public class EntitySet {
         return s.toString();
     }
 
+    public AEntity[] getAll(){
+        if(first == null) return null;
+        AEntity[] entities = new AEntity[length()];
+
+        EntityElement current = first;
+        for(int i = 0; current != null; i++){
+            entities[i] = current.getData();
+            current = current.getNext();
+        }
+        return entities;
+    }
+
     public void nextStep(){
         if(first == null) return;
         EntityElement current = first;

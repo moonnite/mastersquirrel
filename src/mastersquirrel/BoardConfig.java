@@ -8,8 +8,12 @@ public class BoardConfig {
     public final int goodPlantCount;
     public final int badPlantCount;
 
-
-    public BoardConfig(XY size, int wallCount) {
+    public BoardConfig(XY size,
+                       int wallCount,
+                       int goodBeastCount,
+                       int badBeastCount,
+                       int goodPlantCount,
+                       int badPlantCount) {
         this.size = size;
         this.wallCount = wallCount;
         this.goodBeastCount = goodBeastCount;
