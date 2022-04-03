@@ -7,7 +7,7 @@ public abstract class AEntity implements IEntity{
     private static int entityCount = 0;
 
     protected final int ID;
-    protected final String type;
+    protected EntityType type;
     protected XY position;
     protected final int startEnergy;
     protected int energy;
@@ -16,7 +16,13 @@ public abstract class AEntity implements IEntity{
         ID = entityCount++;
         this.startEnergy = startEnergy;
         position = new XY();
-        type = this.getClass().getSimpleName();
+
+        for(EntityType entityType : EntityType.values()){
+            if(entityType.getType().equals(this.getClass().getSimpleName())){
+                type = entityType;
+                break;
+            }
+        }
 
         //Handle List
         //EntitySet.getInstance().put(this);
@@ -28,6 +34,14 @@ public abstract class AEntity implements IEntity{
 
     public int getEnergy(){
         return energy;
+    }
+
+    public EntityType getType(){
+        return type;
+    }
+
+    public XY getPosition(){
+        return this.position;
     }
 
     public void updateEnergy(int energyDelta){

@@ -33,6 +33,10 @@ public class RandomDirection {
         return dirArray[random.nextInt(0,7)];
     }
 
+    public XY getRandom(int xMin, int xMax, int yMin, int yMax){
+        return new XY(random.nextInt(xMin,yMax),random.nextInt(yMin,yMax));
+    }
+
     public int randomInt(){
         return random.nextInt(0,10);
     }
