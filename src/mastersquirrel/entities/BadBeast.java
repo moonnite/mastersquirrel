@@ -1,13 +1,16 @@
-package mastersquirrel;
+package mastersquirrel.entities;
 
-public class GoodPlant extends NoneMovable{
-    public GoodPlant(){
-        super(150);
+import mastersquirrel.XY;
+
+public class BadBeast extends Movable{
+
+    public BadBeast(){
+        super(-150);
     }
 
     @Override
     public void nextStep() {
-        //empty
+        super.nextStep();
     }
 
     @Override

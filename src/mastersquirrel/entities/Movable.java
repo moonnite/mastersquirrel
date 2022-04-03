@@ -1,4 +1,6 @@
-package mastersquirrel;
+package mastersquirrel.entities;
+
+import mastersquirrel.XY;
 
 public abstract class Movable extends AEntity {
     protected Movable(int e) {

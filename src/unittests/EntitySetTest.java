@@ -3,9 +3,11 @@ package unittests;
 import mastersquirrel.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterAll;
+
+import mastersquirrel.entities.BadBeast;
+import mastersquirrel.entities.GoodBeast;
+
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +32,7 @@ public class EntitySetTest {
     public void testPutAndCheckIfInList(){
         System.out.println("testPutAndCheckIfInList");
         entitySet.put(goodBeast1);
+
         if (entitySet.get(goodBeast1.getID()) == null) {
             fail("testPutAndCheckIfInList failed");
         }

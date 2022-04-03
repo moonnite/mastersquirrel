@@ -1,4 +1,6 @@
-package mastersquirrel;
+package mastersquirrel.entities;
+
+import mastersquirrel.XY;
 
 public class MasterSquirrel extends Squirrel{
     public MasterSquirrel(){

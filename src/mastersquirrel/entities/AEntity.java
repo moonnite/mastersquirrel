@@ -1,4 +1,7 @@
-package mastersquirrel;
+package mastersquirrel.entities;
+
+import mastersquirrel.EntitySet;
+import mastersquirrel.XY;
 
 public abstract class AEntity implements IEntity{
     private static int entityCount = 0;
@@ -16,7 +19,7 @@ public abstract class AEntity implements IEntity{
         type = this.getClass().getSimpleName();
 
         //Handle List
-        EntitySet.getInstance().put(this);
+        //EntitySet.getInstance().put(this);
     }
 
     public int getID(){
@@ -39,7 +42,7 @@ public abstract class AEntity implements IEntity{
 
     @Override
     public String toString() {
-        return "mastersquirrel.AEntity{" +
+        return "mastersquirrel.entities.AEntity{" +
                 "ID=" + ID +
                 ", type='" + type + '\'' +
                 ", position=" + position +

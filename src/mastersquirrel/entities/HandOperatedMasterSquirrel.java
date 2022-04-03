@@ -1,4 +1,6 @@
-package mastersquirrel;
+package mastersquirrel.entities;
+
+import mastersquirrel.XY;
 
 import java.util.Scanner;
 

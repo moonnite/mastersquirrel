@@ -1,4 +1,4 @@
-package mastersquirrel;
+package mastersquirrel.entities;
 
 public abstract class NoneMovable extends AEntity {
 

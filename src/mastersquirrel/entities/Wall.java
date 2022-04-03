@@ -1,14 +1,15 @@
-package mastersquirrel;
+package mastersquirrel.entities;
 
-public class BadBeast extends Movable{
+import mastersquirrel.XY;
 
-    public BadBeast(){
-        super(-150);
+public class Wall extends NoneMovable{
+    public Wall(){
+        super(-30);
     }
 
     @Override
     public void nextStep() {
-        super.nextStep();
+
     }
 
     @Override

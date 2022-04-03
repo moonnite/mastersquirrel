@@ -1,5 +1,7 @@
 package mastersquirrel;
 
+import mastersquirrel.entities.AEntity;
+
 public class EntitySet {
     private static final EntitySet ENTITY_SET = new EntitySet();
     private EntityElement first;
@@ -49,7 +51,6 @@ public class EntitySet {
         }
         return null;
     }
-
 
     public void put (AEntity e){
         if(get(e.getID()) != null){

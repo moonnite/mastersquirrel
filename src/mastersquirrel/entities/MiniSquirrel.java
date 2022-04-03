@@ -1,11 +1,11 @@
-package mastersquirrel;
+package mastersquirrel.entities;
 
-public class BadPlant extends NoneMovable{
+import mastersquirrel.XY;
 
-    public BadPlant(){
-        super(-300);
+public class MiniSquirrel extends Squirrel{
+    public MiniSquirrel(int energy){
+        super(energy);
     }
-
     @Override
     public void nextStep() {
 

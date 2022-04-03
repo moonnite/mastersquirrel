@@ -1,8 +1,9 @@
 package unittests;
 
 import mastersquirrel.*;
+import mastersquirrel.entities.AEntity;
 
-public class TestEntity extends AEntity{
+public class TestEntity extends AEntity {
 
     public boolean hasStepped = false;
 
