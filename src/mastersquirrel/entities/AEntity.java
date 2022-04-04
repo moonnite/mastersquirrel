@@ -12,7 +12,7 @@ public abstract class AEntity implements IEntity{
     protected final int startEnergy;
     protected int energy;
 
-    protected AEntity (int startEnergy){
+    protected AEntity (int startEnergy,XY pos){
         ID = entityCount++;
         this.startEnergy = startEnergy;
         position = pos;
@@ -52,6 +52,10 @@ public abstract class AEntity implements IEntity{
     {
         AEntity e = (AEntity) o;
         return Integer.compare(this.getID(), e.getID());
+    }
+
+    public void updatePosition(XY xy){
+        position = xy;
     }
 
     @Override

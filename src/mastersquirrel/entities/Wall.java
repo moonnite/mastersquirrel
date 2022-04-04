@@ -4,8 +4,8 @@ import mastersquirrel.EntityContext;
 import mastersquirrel.XY;
 
 public class Wall extends NoneMovable{
-    public Wall(){
-        super(-30);
+    public Wall(XY pos){
+        super(-30,pos);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package mastersquirrel.entities;
 
+import mastersquirrel.ConsoleUI;
+import mastersquirrel.EntityContext;
 import mastersquirrel.XY;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel{
