@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Test;
 public class EntitySetTest {
 
     private final EntitySet entitySet = EntitySet.getInstance();
-    private final GoodBeast goodBeast1 = new GoodBeast();
-    private final BadBeast badBeast1 = new BadBeast();
-    private final TestEntity testEntity = new TestEntity();
+    private final GoodBeast goodBeast1 = new GoodBeast(new XY(1,1));
+    private final BadBeast badBeast1 = new BadBeast(new XY(1,1));
+    private final TestEntity testEntity = new TestEntity(new XY(1,1));
 
     @BeforeEach
     public void setUp() throws Exception{
@@ -92,7 +92,7 @@ public class EntitySetTest {
     @Test
     public void testNextStep(){
         System.out.println("testNextStep");
-        testEntity.nextStep();
+        testEntity.nextStep(null);
         if(!testEntity.hasStepped){
             fail("testNextStep");
         }

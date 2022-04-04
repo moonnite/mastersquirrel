@@ -2,11 +2,12 @@ package mastersquirrel;
 
 public class Launcher {
     public static void main(String[] args) {
-        //GameImpl game = new GameImpl();
         Board board = new Board();
-        FlattenedBoard flattenedBoard = board.flatten();
+        State state = new State(board);
         ConsoleUI consoleUI = new ConsoleUI();
 
-        consoleUI.render(flattenedBoard);
+        GameImpl game = new GameImpl(state, consoleUI);
+
+        game.run(state.getFlattenedBoard());
     }
 }

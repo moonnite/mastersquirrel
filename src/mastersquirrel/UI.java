@@ -2,5 +2,5 @@ package mastersquirrel;
 
 public interface UI {
     //public MoveCommand getCommand();
-    public void render(BoardView view);
+    public void render(BoardView boardView);
 }

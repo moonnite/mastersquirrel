@@ -31,6 +31,10 @@ public class FlattenedBoard implements EntityContext, BoardView{
 
     @Override
     public void move(AEntity entity, XY moveDirection) {
-
+        //später hier kollisionsregeln
+        XY newPos = XY.add(entity.getPosition(),moveDirection);
+        if(boardArray[newPos.getXLen()][newPos.getYLen()] == null){
+            entity.updatePosition(newPos);
+        }
     }
 }

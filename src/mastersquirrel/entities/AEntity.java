@@ -1,6 +1,6 @@
 package mastersquirrel.entities;
 
-import mastersquirrel.EntitySet;
+import mastersquirrel.EntityContext;
 import mastersquirrel.XY;
 
 public abstract class AEntity implements IEntity{
@@ -15,7 +15,7 @@ public abstract class AEntity implements IEntity{
     protected AEntity (int startEnergy){
         ID = entityCount++;
         this.startEnergy = startEnergy;
-        position = new XY();
+        position = pos;
 
         for(EntityType entityType : EntityType.values()){
             if(entityType.getType().equals(this.getClass().getSimpleName())){
@@ -24,7 +24,7 @@ public abstract class AEntity implements IEntity{
             }
         }
 
-        //Handle List
+        //Handle List (Auto Subscribe to list on create)
         //EntitySet.getInstance().put(this);
     }
 
@@ -65,4 +65,5 @@ public abstract class AEntity implements IEntity{
                 '}';
     }
 
+    public abstract void nextStep(EntityContext entityContext);
 }

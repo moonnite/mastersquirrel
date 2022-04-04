@@ -5,7 +5,7 @@ public class State {
     private final Board board;
     private static int highscore = 0;
 
-    public State(Board board, int highscore){
+    public State(Board board){
         this.board = board;
     }
 
@@ -15,6 +15,10 @@ public class State {
 
     public FlattenedBoard flattenBoard(){
         return null;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     public int getHighscore() {

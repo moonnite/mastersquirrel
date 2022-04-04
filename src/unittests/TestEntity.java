@@ -7,12 +7,12 @@ public class TestEntity extends AEntity {
 
     public boolean hasStepped = false;
 
-    protected TestEntity() {
-        super(200);
+    protected TestEntity(XY pos) {
+        super(200,pos);
     }
 
     @Override
-    public void nextStep() {
+    public void nextStep(EntityContext entityContext) {
         hasStepped = true;
     }
 

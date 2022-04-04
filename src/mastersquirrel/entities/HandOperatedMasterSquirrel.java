@@ -2,31 +2,28 @@ package mastersquirrel.entities;
 
 import mastersquirrel.XY;
 
-import java.util.Scanner;
-
 public class HandOperatedMasterSquirrel extends MasterSquirrel{
+    ConsoleUI consoleUI;
 
-    Scanner s = new Scanner(System.in);
-
-    public HandOperatedMasterSquirrel() {
-        super();
+    public HandOperatedMasterSquirrel(XY pos, ConsoleUI consoleUI) {
+        super(pos);
+        this.consoleUI = consoleUI;
     }
 
     @Override
-    public void nextStep() {
-        String input = s.nextLine();
-        switch(input){
+    public void nextStep(EntityContext entityContext) {
+        switch(consoleUI.getInput()){
             case "w"-> {
-                position = XY.add(position, XY.UP);
+                entityContext.move(this,XY.UP);
             }
             case "a" -> {
-                position = XY.add(position, XY.LEFT);
+                entityContext.move(this,XY.LEFT);
             }
             case "s" -> {
-                position = XY.add(position, XY.DOWN);
+                entityContext.move(this,XY.DOWN);
             }
             case "d" -> {
-                position = XY.add(position, XY.RIGHT);
+                entityContext.move(this,XY.RIGHT);
             }
             default -> {
                 System.out.println("Wrong Input");

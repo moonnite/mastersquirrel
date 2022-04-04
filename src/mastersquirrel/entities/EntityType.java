@@ -1,7 +1,13 @@
 package mastersquirrel.entities;
 
 public enum EntityType {
-    GOODPLANT("GoodPlant"), BADPLANT("BadPlant"), GOODBEAST("GoodBeast"), BADBEAST("BadBeast"), WALL("Wall"), EMPTY("Empty");
+    GOODPLANT("GoodPlant"),
+    BADPLANT("BadPlant"),
+    GOODBEAST("GoodBeast"),
+    BADBEAST("BadBeast"),
+    WALL("Wall"),
+    EMPTY("Empty"),
+    HANDOPERATEDMASTERSQUIRREL("HandOperatedMasterSquirrel");
 
     private String type;
 

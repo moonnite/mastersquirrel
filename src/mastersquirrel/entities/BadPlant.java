@@ -1,25 +1,21 @@
 package mastersquirrel.entities;
 
+import mastersquirrel.EntityContext;
 import mastersquirrel.XY;
 
 public class BadPlant extends NoneMovable{
 
-    public BadPlant(){
-        super(-300);
+    public BadPlant(XY pos){
+        super(-300, pos);
     }
 
     @Override
-    public void nextStep() {
+    public void nextStep(EntityContext entityContext) {
 
     }
 
     @Override
     public void updateEnergy(int energyDelta) {
-
-    }
-
-    @Override
-    public void updatePosition(XY pos) {
 
     }
 }

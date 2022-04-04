@@ -105,11 +105,11 @@ public class EntitySet {
         return entities;
     }
 
-    public void nextStep(){
+    public void nextStep(EntityContext entityContext){
         if(first == null) return;
         EntityElement current = first;
         do {
-            current.getData().nextStep();
+            current.getData().nextStep(entityContext);
             current = current.getNext();
         } while(current != null);
     }

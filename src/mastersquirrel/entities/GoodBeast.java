@@ -1,25 +1,21 @@
 package mastersquirrel.entities;
 
+import mastersquirrel.EntityContext;
 import mastersquirrel.XY;
 
 public class GoodBeast extends Movable{
 
-    public GoodBeast(){
-        super(300);
+    public GoodBeast(XY pos){
+        super(300,pos);
     }
 
     @Override
-    public void nextStep() {
-        super.nextStep();
+    public void nextStep(EntityContext entityContext) {
+        super.nextStep(entityContext);
     }
 
     @Override
     public void updateEnergy(int energyDelta) {
-
-    }
-
-    @Override
-    public void updatePosition(XY pos) {
 
     }
 }

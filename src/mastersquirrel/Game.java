@@ -1,26 +1,27 @@
 package mastersquirrel;
 
+import javax.swing.text.View;
+
 public abstract class Game implements UI {
 
-    public void run(){
+    State state;
+
+    public Game(State state){
+        this.state = state;
+    }
+
+    public void run(BoardView boardView){
         while(true){
-            render();
+            render(boardView);
             processInput();
             update();
         }
     }
 
     //process user Input
-    protected void processInput(){
-
-    }
+    protected abstract void processInput();
 
     protected abstract void update(); //change current game state
 
-    protected abstract void render(); //display game state
-
-    @Override
-    public void render(BoardView view) {
-
-    }
+    public abstract void render(BoardView boardView); //display game state
 }

@@ -34,10 +34,14 @@ public class RandomDirection {
     }
 
     public XY getRandom(int xMin, int xMax, int yMin, int yMax){
-        return new XY(random.nextInt(xMin,yMax),random.nextInt(yMin,yMax));
+        return new XY(random.nextInt(xMin,xMax),random.nextInt(yMin,yMax));
     }
 
     public int randomInt(){
         return random.nextInt(0,10);
+    }
+
+    public int randomInt(int origin, int bound){
+        return random.nextInt(origin,bound);
     }
 }

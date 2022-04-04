@@ -3,16 +3,22 @@ package mastersquirrel;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
 
+import java.util.Scanner;
+
 public class ConsoleUI implements UI {
+
+    Scanner s = new Scanner(System.in);
+
     @Override
     public void render(BoardView view) {
         AEntity[][] boardArray= view.getBoardArray();
 
-        for (int i = 0; i < boardArray[1].length; i++) {
-            for (int j = 0; j < boardArray[0].length; j++) {
+        //print Board
+        for (int i = 0; i < boardArray[0].length; i++) {
+            for (int j = 0; j < boardArray.length; j++) {
                 EntityType type = EntityType.EMPTY;
-                if(boardArray[i][j] != null){
-                    type = boardArray[i][j].getType();
+                if(boardArray[j][i] != null){
+                    type = boardArray[j][i].getType();
                 }
                 switch (type) {
                     case GOODBEAST -> {
@@ -24,7 +30,7 @@ public class ConsoleUI implements UI {
                         System.out.print("■");
                     }
                     case GOODPLANT -> {
-                        System.out.print("\u001B[32m");
+                        System.out.print("\u001B[93m");
                         System.out.print("■");
                     }
                     case BADPLANT -> {
@@ -33,6 +39,10 @@ public class ConsoleUI implements UI {
                     }
                     case WALL -> {
                         System.out.print("\u001B[96m");
+                        System.out.print("■");
+                    }
+                    case HANDOPERATEDMASTERSQUIRREL -> {
+                        System.out.print("\u001B[97m");
                         System.out.print("■");
                     }
                     case EMPTY -> {
@@ -48,7 +58,9 @@ public class ConsoleUI implements UI {
             }
             System.out.println();
         }
+    }
 
-
+    public String getInput(){
+        return s.nextLine();
     }
 }
