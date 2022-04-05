@@ -13,10 +13,6 @@ public class State {
 
     }
 
-    public FlattenedBoard getFlattenedBoard(){
-        return board.flatten();
-    }
-
     public Board getBoard() {
         return board;
     }

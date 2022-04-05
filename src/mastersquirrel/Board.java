@@ -3,19 +3,21 @@ package mastersquirrel;
 import mastersquirrel.entities.*;
 
 public class Board {
-    private BoardConfig boardConfig;
-    private EntitySet entitySet;
+    private final BoardConfig boardConfig;
+    private final EntitySet entitySet = EntitySet.getInstance();
     private final int[][] alreadyUsed;
     private final RandomDirection rD = RandomDirection.getInstance();
 
 
-    public Board(){
-        setBoardConfig();
-        setBoarderWallElements(boardConfig.size.getXLen(),boardConfig.size.getYLen());
+    public Board(BoardConfig boardConfig){
+        this.boardConfig = boardConfig;
         alreadyUsed = new int[boardConfig.size.getXLen()][boardConfig.size.getYLen()];
+
+        setBoarderWallElements(boardConfig.size.getXLen(),boardConfig.size.getYLen());
         setEntities(boardConfig.size.getXLen(),boardConfig.size.getYLen());
     }
 
+    //creates a 2D Array representing a board with all entities from the entitySet
     public FlattenedBoard flatten(){
         FlattenedBoard flattenedBoard = new FlattenedBoard(boardConfig.size.getXLen(),boardConfig.size.getYLen());
         AEntity[] entities = entitySet.getAll();
@@ -29,6 +31,7 @@ public class Board {
         return flattenedBoard;
     }
 
+    //returns a random unused position on the current board
     private XY getRandomPos(){
         int x = rD.randomInt(1,boardConfig.size.getXLen() - 1);
         int y = rD.randomInt(1,boardConfig.size.getYLen() - 1);
@@ -40,6 +43,7 @@ public class Board {
         return new XY(x,y);
     }
 
+    //creates and places entities
     private void setEntities(int xLen, int yLen){
 
         AEntity initRef;
@@ -74,6 +78,7 @@ public class Board {
         }
     }
 
+    //creates border elements surrounding the board
     private void setBoarderWallElements(int xLen, int yLen) {
         Wall[] wallArr = new Wall[2 * xLen + 2 * yLen - 4];
 
@@ -91,16 +96,5 @@ public class Board {
                 }
             }
         }
-    }
-
-    public void setBoardConfig() {
-        boardConfig = new BoardConfig(
-                new XY(20, 10),
-                20,
-                4,
-                5,
-                3,
-                4);
-        entitySet = EntitySet.getInstance();
     }
 }

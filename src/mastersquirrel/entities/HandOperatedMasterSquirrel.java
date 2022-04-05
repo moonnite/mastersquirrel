@@ -2,12 +2,13 @@ package mastersquirrel.entities;
 
 import mastersquirrel.ConsoleUI;
 import mastersquirrel.EntityContext;
+import mastersquirrel.UI;
 import mastersquirrel.XY;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel{
-    ConsoleUI consoleUI;
+    UI consoleUI;
 
-    public HandOperatedMasterSquirrel(XY pos, ConsoleUI consoleUI) {
+    public HandOperatedMasterSquirrel(XY pos, UI consoleUI) {
         super(pos);
         this.consoleUI = consoleUI;
     }

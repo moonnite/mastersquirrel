@@ -2,7 +2,7 @@ package mastersquirrel;
 
 import javax.swing.text.View;
 
-public abstract class Game implements UI {
+public abstract class Game{
 
     State state;
 

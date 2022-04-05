@@ -14,6 +14,7 @@ public class EntitySet {
         return ENTITY_SET;
     }
 
+    //throws unchecked exception when element does not exist in list
     public AEntity pull(int ID){
         if(first == null){
             throw new ElementNotInListException("Element not in List");
@@ -52,6 +53,7 @@ public class EntitySet {
         return null;
     }
 
+    //throws unchecked exception when element already in list
     public void put (AEntity e){
         if(get(e.getID()) != null){
             throw new ElementAlreadyExistsException("Element already in List");
