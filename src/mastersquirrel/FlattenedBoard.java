@@ -9,6 +9,14 @@ public class FlattenedBoard implements EntityContext, BoardView{
 
     public FlattenedBoard(int x, int y){
         boardArray = new AEntity[x][y];
+
+        AEntity[] entities = EntitySet.getInstance().getAll();
+        AEntity initRef;
+        for (AEntity entity : entities) {
+            initRef = entity;
+            boardArray[initRef.getPosition().getXLen()]
+                      [initRef.getPosition().getYLen()] = entity;
+        }
     }
 
     @Override

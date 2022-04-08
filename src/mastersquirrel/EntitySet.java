@@ -8,9 +8,11 @@ import java.util.stream.IntStream;
 public class EntitySet {
     private static final EntitySet ENTITY_SET = new EntitySet();
     private EntityElement first;
+    private EntityElement last;
 
     private EntitySet(){
         first = null;
+        last = null;
     }
 
     public static EntitySet getInstance(){
@@ -37,6 +39,7 @@ public class EntitySet {
                 AEntity temp = current.getData();
                 if (current.getPrev() != null) current.getPrev().setNext(current.getNext());
                 if (current.getNext() != null) current.getNext().setPrev(current.getPrev());
+                if (current == last) last = current.getPrev();
                 return temp;
             }
             current = current.getNext();
@@ -118,26 +121,82 @@ public class EntitySet {
             current = current.getNext();
         } while(current != null);
     }
-}
 
-
-class EntityElement{
-
-    private final AEntity data;
-    private EntityElement prev;
-    private EntityElement next;
-
-    EntityElement(AEntity d){
-        data = d;
+    //anonymous class
+    public Enumeration enumerateForward(){
+        return new Enumeration() {
+            EntityElement current = first;
+            @Override
+            public boolean hasMoreElements() {
+                return (current.getNext() != null);
+            }
+            @Override
+            public Object nextElement() {
+                EntityElement temp = current.getNext();
+                current = current.getNext();
+                return temp.getData();
+            }
+        };
     }
 
-    public EntityElement getNext() { return next; }
-    public EntityElement getPrev() { return prev; }
+    //local class
+    public Enumeration enumerateBackward(){
+        class Enumeration implements java.util.Enumeration {
+            EntityElement current = last;
+            @Override
+            public boolean hasMoreElements() {
+                return (current.getPrev()!=null);
+            }
+            @Override
+            public Object nextElement() {
+                EntityElement temp = current.getPrev();
+                current = current.getPrev();
+                return temp.getData();
+            }
+        }
+        return new Enumeration();
+    }
 
-    public void setNext(EntityElement next) { this.next = next;}
-    public void setPrev(EntityElement prev) { this.prev = prev;}
+    public Enumeration enumerateRandom(){
+        return new EnumerationRandom();
+    }
 
-    public AEntity getData(){
-        return data;
+    //inner class
+    private class EnumerationRandom implements java.util.Enumeration {
+        AEntity[] aEntities = getAll();
+        int[] range = IntStream.rangeClosed(0, aEntities.length-1).toArray();
+        ArrayList<Integer> arrayList = new ArrayList<>();
+
+        public EnumerationRandom(){
+            for(Integer i:range){arrayList.add(i);}
+            Collections.shuffle(arrayList, new Random(42069));
+        }
+        @Override
+        public boolean hasMoreElements() {
+            return !arrayList.isEmpty();
+        }
+        @Override
+        public Object nextElement() {
+            AEntity temp = aEntities[arrayList.get(0)];
+            arrayList.remove(0);
+            return temp;
+        }
+    }
+
+    private static class EntityElement{
+
+        private final AEntity data;
+        private EntityElement prev;
+        private EntityElement next;
+
+        private EntityElement(AEntity d){ data = d; }
+
+        private EntityElement getNext() { return next; }
+        private EntityElement getPrev() { return prev; }
+
+        private void setNext(EntityElement next) { this.next = next;}
+        private void setPrev(EntityElement prev) { this.prev = prev;}
+
+        private AEntity getData(){return data;}
     }
 }

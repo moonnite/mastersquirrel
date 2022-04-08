@@ -71,21 +71,17 @@ public class Board {
 
     //creates border elements surrounding the board
     private void setBoarderWallElements(int xLen, int yLen) {
-        Wall[] wallArr = new Wall[2 * xLen + 2 * yLen - 4];
-
-        int count = 0;
-
-        //iterate over whole array
-        for (int i = 0; i < xLen; i++) {
-            for (int j = 0; j < yLen; j++) {
-                //only place wall element when current element is part of boarder
-                if (i == 0 || j == 0 || i == xLen - 1 || j == yLen - 1) {
-                    wallArr[count] = new Wall(new XY(i,j));
-                    //add wall element to list
-                    entitySet.put(wallArr[count]);
-                    count++;
-                }
-            }
+        //Top and bottom border
+        for (int i = 0; i<xLen; i++){
+            //add wall element to list
+            entitySet.put(new Wall(new XY(i,0)));
+            entitySet.put(new Wall(new XY(i,yLen-1)));
+        }
+        //Left and right border
+        for (int i = 1; i<yLen-1; i++){
+            //add wall element to list
+            entitySet.put(new Wall(new XY(0,i)));
+            entitySet.put(new Wall(new XY(xLen-1,i)));
         }
     }
 }
