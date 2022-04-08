@@ -33,9 +33,7 @@ public class EntitySetTest {
         System.out.println("testPutAndCheckIfInList");
         entitySet.put(goodBeast1);
 
-        if (entitySet.get(goodBeast1.getID()) == null) {
-            fail("testPutAndCheckIfInList failed");
-        }
+        assertNotNull(entitySet.get(goodBeast1.getID()));
     }
 
     @Test
@@ -44,9 +42,7 @@ public class EntitySetTest {
         entitySet.put(goodBeast1);
         entitySet.pull(goodBeast1.getID());
 
-        if (entitySet.get(goodBeast1.getID()) != null) {
-            fail("testPullAndCheckIfNotInList failed");
-        }
+        assertNull(entitySet.get(goodBeast1.getID()));
     }
 
     @Test
@@ -55,13 +51,9 @@ public class EntitySetTest {
         entitySet.put(goodBeast1);
         entitySet.put(badBeast1);
 
-        System.out.println(entitySet.listToString());
-
         entitySet.pull(goodBeast1.getID());
 
-        if(entitySet.get(badBeast1.getID()) == null){
-            fail("testIfOnlyOneIsPulled failed");
-        }
+        assertNotNull(entitySet.get(badBeast1.getID()));
     }
 
     @Test
@@ -93,8 +85,7 @@ public class EntitySetTest {
     public void testNextStep(){
         System.out.println("testNextStep");
         testEntity.nextStep(null);
-        if(!testEntity.hasStepped){
-            fail("testNextStep");
-        }
+
+        assertTrue(testEntity.hasStepped);
     }
 }

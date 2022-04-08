@@ -2,6 +2,9 @@ package mastersquirrel;
 
 import mastersquirrel.entities.AEntity;
 
+import java.util.*;
+import java.util.stream.IntStream;
+
 public class EntitySet {
     private static final EntitySet ENTITY_SET = new EntitySet();
     private EntityElement first;
@@ -59,17 +62,17 @@ public class EntitySet {
             throw new ElementAlreadyExistsException("Element already in List");
         }
 
+        EntityElement current = new EntityElement(e);
+
         if(first == null) {
-            first = new EntityElement(e);
+            first = current;
+            last = first;
             return;
         }
 
-        EntityElement current = first;
-        while(current.getNext() != null){
-            current = current.getNext();
-        }
-        current.setNext(new EntityElement(e));
-        current.getNext().setPrev(current);
+        last.setNext(current);
+        current.setPrev(last);
+        last = current;
     }
 
     public int length(){

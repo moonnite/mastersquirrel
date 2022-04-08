@@ -17,11 +17,6 @@ public final class XY {
         this.yLen = yLen;
     }
 
-    public XY(){
-        this.xLen = random.randomInt();
-        this.yLen = random.randomInt();
-    }
-
     public int getYLen() {
         return yLen;
     }

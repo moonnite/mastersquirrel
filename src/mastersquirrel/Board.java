@@ -11,67 +11,58 @@ public class Board {
 
     public Board(BoardConfig boardConfig){
         this.boardConfig = boardConfig;
-        alreadyUsed = new int[boardConfig.size.getXLen()][boardConfig.size.getYLen()];
+        alreadyUsed = new int[boardConfig.BOARD_SIZE.getXLen()][boardConfig.BOARD_SIZE.getYLen()];
 
-        setBoarderWallElements(boardConfig.size.getXLen(),boardConfig.size.getYLen());
-        setEntities(boardConfig.size.getXLen(),boardConfig.size.getYLen());
+        setBoarderWallElements(boardConfig.BOARD_SIZE.getXLen(),boardConfig.BOARD_SIZE.getYLen());
+        setEntities(boardConfig.BOARD_SIZE.getXLen(),boardConfig.BOARD_SIZE.getYLen());
     }
 
     //creates a 2D Array representing a board with all entities from the entitySet
     public FlattenedBoard flatten(){
-        FlattenedBoard flattenedBoard = new FlattenedBoard(boardConfig.size.getXLen(),boardConfig.size.getYLen());
-        AEntity[] entities = entitySet.getAll();
-        AEntity initRef;
-        for (int i = 0; i < entities.length; i++) {
-            initRef = entities[i];
-            int x = initRef.getPosition().getXLen();
-            int y = initRef.getPosition().getYLen();
-            flattenedBoard.boardArray[x][y] = entities[i];
-        }
-        return flattenedBoard;
+        return new FlattenedBoard(boardConfig.BOARD_SIZE.getXLen(),boardConfig.BOARD_SIZE.getYLen());
     }
 
     //returns a random unused position on the current board
     private XY getRandomPos(){
-        int x = rD.randomInt(1,boardConfig.size.getXLen() - 1);
-        int y = rD.randomInt(1,boardConfig.size.getYLen() - 1);
+        int x = rD.randomInt(1,boardConfig.BOARD_SIZE.getXLen() - 1);
+        int y = rD.randomInt(1,boardConfig.BOARD_SIZE.getYLen() - 1);
         while(alreadyUsed[x][y] == 1){
-            x = rD.randomInt(1,boardConfig.size.getXLen() - 1);
-            y = rD.randomInt(1,boardConfig.size.getYLen() - 1);
+            x = rD.randomInt(1,boardConfig.BOARD_SIZE.getXLen() - 1);
+            y = rD.randomInt(1,boardConfig.BOARD_SIZE.getYLen() - 1);
         }
         alreadyUsed[x][y] = 1;
         return new XY(x,y);
     }
 
     //creates and places entities
-    private void setEntities(int xLen, int yLen){
+    private void setEntities(int xLen, int yLen) {
 
         AEntity initRef;
 
-        for(int i = 0; i<boardConfig.wallCount; i++) {
+        for (int i = 0; i < boardConfig.WALL_COUNT; i++) {
             XY randomPos = getRandomPos();
             initRef = new Wall(randomPos);
             entitySet.put(initRef);
         }
 
-        for(int i = 0; i<boardConfig.badBeastCount; i++) {
+        for (int i = 0; i < boardConfig.BAD_BEAST_COUNT; i++) {
             XY randomPos = getRandomPos();
             initRef = new BadBeast(randomPos);
             entitySet.put(initRef);
         }
 
-        for(int i = 0; i<boardConfig.goodBeastCount; i++) {
+        for (int i = 0; i < boardConfig.GOOD_BEAST_COUNT; i++) {
             XY randomPos = getRandomPos();
             initRef = new GoodBeast(randomPos);
             entitySet.put(initRef);
         }
 
-        for(int i = 0; i<boardConfig.badPlantCount; i++) {
+        for (int i = 0; i < boardConfig.BAD_PLANT_COUNT; i++) {
             XY randomPos = getRandomPos();
             initRef = new BadPlant(randomPos);
             entitySet.put(initRef);
         }
-        for(int i = 0; i<boardConfig.goodPlantCount; i++) {
+        for (int i = 0; i < boardConfig.GOOD_PLANT_COUNT; i++) {
             XY randomPos = getRandomPos();
             initRef = new GoodPlant(randomPos);
             entitySet.put(initRef);

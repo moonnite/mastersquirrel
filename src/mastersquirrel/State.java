@@ -17,6 +17,8 @@ public class State {
         return board;
     }
 
+    public FlattenedBoard flattenBoard(){return board.flatten();}
+
     public int getHighscore() {
         return State.highscore;
     }

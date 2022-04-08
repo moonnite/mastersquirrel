@@ -22,11 +22,11 @@ public class GameImpl extends Game{
 
     @Override
     protected void update() {
-        entitySet.nextStep(state.getBoard().flatten());
+        entitySet.nextStep(state.flattenBoard());
     }
 
     @Override
     public void render(BoardView boardView) {
-        consoleUI.render(state.getBoard().flatten());
+        consoleUI.render(state.flattenBoard());
     }
 }

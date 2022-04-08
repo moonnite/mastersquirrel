@@ -30,7 +30,7 @@ public class RandomDirection {
     }
 
     public XY getRandom(){
-        return dirArray[random.nextInt(0,7)];
+        return dirArray[random.nextInt(0,8)];
     }
 
     public XY getRandom(int xMin, int xMax, int yMin, int yMax){
