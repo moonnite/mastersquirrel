@@ -15,6 +15,11 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
 
     @Override
     public void nextStep(EntityContext entityContext) {
+        if(cooldown > 0){
+            cooldown--;
+            return;
+        }
+
         switch(consoleUI.getInput()){
             case "w"-> {
                 entityContext.move(this,XY.UP);

@@ -4,6 +4,9 @@ import mastersquirrel.EntityContext;
 import mastersquirrel.XY;
 
 public abstract class Movable extends AEntity {
+
+    protected int cooldown;
+
     protected Movable(int e, XY pos) {
         super(e,pos);
     }
@@ -16,5 +19,4 @@ public abstract class Movable extends AEntity {
     public void randomMovement(){
         position = XY.add(position, position.genNewDir());
     }
-
 }

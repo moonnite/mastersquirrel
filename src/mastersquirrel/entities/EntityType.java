@@ -7,9 +7,11 @@ public enum EntityType {
     BADBEAST("BadBeast"),
     WALL("Wall"),
     EMPTY("Empty"),
+    MINISQUIRREL("MiniSquirrel"),
+    MASTERSQUIRREL("MasterSquirrel"),
     HANDOPERATEDMASTERSQUIRREL("HandOperatedMasterSquirrel");
 
-    private String type;
+    private final String type;
 
 
     EntityType(String type) {

@@ -11,7 +11,7 @@ public class BadPlant extends NoneMovable{
 
     @Override
     public void nextStep(EntityContext entityContext) {
-
+        //does not move
     }
 
     @Override

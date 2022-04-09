@@ -11,7 +11,7 @@ public class GameImpl extends Game{
     public GameImpl(State state, UI consoleUI) {
         super(state);
         this.consoleUI = consoleUI;
-        handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(5,5),consoleUI);
+        handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(13,5),consoleUI);
         entitySet.put(handOperatedMasterSquirrel);
     }
 

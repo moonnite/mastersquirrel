@@ -4,12 +4,12 @@ public class Launcher {
     public static void main(String[] args) {
 
         BoardConfig boardConfig = new BoardConfig(
-                new XY(20, 10),
-                20,
-                4,
-                5,
-                3,
-                4);
+                new XY(30, 8),
+                1,
+                1,
+                1,
+                1,
+                1);
 
         Board board = new Board(boardConfig);
         State state = new State(board);

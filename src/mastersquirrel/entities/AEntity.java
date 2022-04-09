@@ -15,6 +15,7 @@ public abstract class AEntity implements IEntity{
     protected AEntity (int startEnergy,XY pos){
         ID = entityCount++;
         this.startEnergy = startEnergy;
+        energy = this.startEnergy;
         position = pos;
 
         for(EntityType entityType : EntityType.values()){

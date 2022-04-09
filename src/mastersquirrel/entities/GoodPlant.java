@@ -10,7 +10,7 @@ public class GoodPlant extends NoneMovable{
 
     @Override
     public void nextStep(EntityContext entityContext) {
-        //empty
+        //does not move
     }
 
     @Override

@@ -114,12 +114,15 @@ public class EntitySet {
     }
 
     public void nextStep(EntityContext entityContext){
-        if(first == null) return;
-        EntityElement current = first;
-        do {
-            current.getData().nextStep(entityContext);
-            current = current.getNext();
-        } while(current != null);
+        Enumeration e = enumerateRandom();
+        int count = 0;
+        while(e.hasMoreElements()){
+            AEntity a = (AEntity)e.nextElement();
+            //System.out.println(a.getID());
+            count++;
+            a.nextStep(entityContext);
+        }
+        System.out.println("Updated "+count+" entities.");
     }
 
     //anonymous class
@@ -128,11 +131,11 @@ public class EntitySet {
             EntityElement current = first;
             @Override
             public boolean hasMoreElements() {
-                return (current.getNext() != null);
+                return (current != null);
             }
             @Override
             public Object nextElement() {
-                EntityElement temp = current.getNext();
+                EntityElement temp = current;
                 current = current.getNext();
                 return temp.getData();
             }
@@ -145,16 +148,20 @@ public class EntitySet {
             EntityElement current = last;
             @Override
             public boolean hasMoreElements() {
-                return (current.getPrev()!=null);
+                return (current!=null);
             }
             @Override
             public Object nextElement() {
-                EntityElement temp = current.getPrev();
+                EntityElement temp = current;
                 current = current.getPrev();
                 return temp.getData();
             }
         }
         return new Enumeration();
+    }
+
+    public Enumeration enumerateRandom(int seed){
+        return new EnumerationRandom(seed);
     }
 
     public Enumeration enumerateRandom(){
@@ -167,10 +174,16 @@ public class EntitySet {
         int[] range = IntStream.rangeClosed(0, aEntities.length-1).toArray();
         ArrayList<Integer> arrayList = new ArrayList<>();
 
+        public EnumerationRandom(int seed){
+            for(Integer i:range){arrayList.add(i);}
+            Collections.shuffle(arrayList, new Random(seed));
+        }
+
         public EnumerationRandom(){
             for(Integer i:range){arrayList.add(i);}
-            Collections.shuffle(arrayList, new Random(42069));
+            Collections.shuffle(arrayList, new Random());
         }
+
         @Override
         public boolean hasMoreElements() {
             return !arrayList.isEmpty();

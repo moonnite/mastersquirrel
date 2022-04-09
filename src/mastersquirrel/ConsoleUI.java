@@ -3,6 +3,7 @@ package mastersquirrel;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ConsoleUI implements UI {
@@ -57,6 +58,21 @@ public class ConsoleUI implements UI {
                 System.out.print(" ");
             }
             System.out.println();
+        }
+        printStats(boardArray);
+
+    }
+
+    public void printStats(AEntity[][] boardArray) {
+        for (int i = 0; i < boardArray[0].length; i++) {
+            for (int j = 0; j < boardArray.length; j++) {
+                EntityType type = EntityType.EMPTY;
+                if (boardArray[j][i] != null) {
+                    if (boardArray[j][i].getType() != EntityType.WALL) {
+                        System.out.println(boardArray[j][i].getID() + " " + boardArray[j][i].getType() + " Energy:" + boardArray[j][i].getEnergy()+ "                         " + boardArray[j][i].getPosition());
+                    }
+                }
+            }
         }
     }
 
