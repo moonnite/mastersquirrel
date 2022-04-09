@@ -47,6 +47,11 @@ public class EntitySet {
         return null;
     }
 
+    public void clear(){
+        first = null;
+        last = null;
+    }
+
     public AEntity get(int ID){
         if(first == null) return null;
         EntityElement current = first;

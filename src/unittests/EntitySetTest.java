@@ -24,6 +24,7 @@ public class EntitySetTest {
     @BeforeEach
     public void setUp() throws Exception{
         System.out.println("-------START TEST-------");
+        entitySet.clear();
     }
 
     @AfterEach
