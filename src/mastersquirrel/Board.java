@@ -69,10 +69,25 @@ public class Board {
             initRef = new BadPlant(randomPos);
             entitySet.put(initRef);
         }
+
         for (int i = 0; i < boardConfig.GOOD_PLANT_COUNT; i++) {
             XY randomPos = getRandomPos();
             randomPos = new XY(21,2);
             initRef = new GoodPlant(randomPos);
+            entitySet.put(initRef);
+        }
+
+        for (int i = 0; i < boardConfig.MINI_SQUIRREL_COUNT; i++) {
+            XY randomPos = getRandomPos();
+            randomPos = new XY(6,3);
+            initRef = new MiniSquirrel(12,randomPos,null);
+            entitySet.put(initRef);
+        }
+
+        for (int i = 0; i < boardConfig.MASTER_SQUIRREL_COUNT; i++) {
+            XY randomPos = getRandomPos();
+            randomPos = new XY(6,3);
+            initRef = new MasterSquirrel(randomPos);
             entitySet.put(initRef);
         }
     }

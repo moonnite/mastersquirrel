@@ -9,6 +9,8 @@ public class Launcher {
                 1,
                 1,
                 1,
+                1,
+                1,
                 1);
 
         Board board = new Board(boardConfig);

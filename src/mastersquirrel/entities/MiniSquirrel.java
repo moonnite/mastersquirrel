@@ -2,6 +2,7 @@ package mastersquirrel.entities;
 
 import mastersquirrel.EntityContext;
 import mastersquirrel.EntitySet;
+import mastersquirrel.Pathfinding;
 import mastersquirrel.XY;
 
 public class MiniSquirrel extends Squirrel{
@@ -29,6 +30,7 @@ public class MiniSquirrel extends Squirrel{
 
     public void kill(){
         EntitySet.getInstance().pull(getID());
+        Pathfinding.removeFromSquirrelList(this);
     }
 
     public AEntity getParent() {

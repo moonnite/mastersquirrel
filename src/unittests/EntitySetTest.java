@@ -4,9 +4,7 @@ import mastersquirrel.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import mastersquirrel.entities.AEntity;
-import mastersquirrel.entities.BadBeast;
-import mastersquirrel.entities.GoodBeast;
+import mastersquirrel.entities.*;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -148,5 +146,90 @@ public class EntitySetTest {
             condition = (aEntity.getID() == aEntities[i].getID());
         }
         assertTrue(condition);
+    }
+
+    @Test
+    public void testCollision() {
+        System.out.println("testCollision");
+        XY posToCheck = new XY(1,3);
+        BadBeast badBeastCustom = new BadBeast(posToCheck){
+            @Override
+            public void nextStep(EntityContext entityContext) {
+                type = EntityType.BADBEAST;
+                entityContext.move(this,XY.RIGHT);
+            }
+        };
+
+        entitySet.put(badBeastCustom);
+        Wall wall = new Wall(new XY(2,3));
+        entitySet.put(wall);
+
+        BoardConfig boardConfig = new BoardConfig(
+                new XY(15, 15),
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0);
+
+        Board board = new Board(boardConfig);
+        State state = new State(board);
+
+        entitySet.nextStep(state.flattenBoard());
+
+        assertSame(badBeastCustom.getPosition(), posToCheck);
+    }
+
+    @Test
+    public void testBite() {
+        System.out.println("testBite");
+        XY posToCheck = new XY(3,3);
+        BadBeast badBeastCustom = new BadBeast(posToCheck){
+            @Override
+            public void nextStep(EntityContext entityContext) {
+                type = EntityType.BADBEAST;
+                super.nextStep(entityContext);
+            }
+        };
+
+        XY[] xyArray = {
+                new XY(3,4),
+                new XY(3,2),
+                new XY(2,3),
+                new XY(4,3),
+                new XY(4,4),
+                new XY(2,2),
+                new XY(4,2),
+                new XY(2,4),
+        };
+        entitySet.put(badBeastCustom);
+        for (XY xy : xyArray) {
+            MasterSquirrel masterSquirrelTemp = new MasterSquirrel(xy) {
+                @Override
+                public void nextStep(EntityContext entityContext) {
+                    type = EntityType.MASTERSQUIRREL;
+                }
+            };
+            entitySet.put(masterSquirrelTemp);
+        }
+
+        BoardConfig boardConfig = new BoardConfig(
+                new XY(15, 15),
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0);
+
+        Board board = new Board(boardConfig);
+        State state = new State(board);
+
+        entitySet.nextStep(state.flattenBoard());
+
+        assertTrue(badBeastCustom.getRemainingBites() == badBeastCustom.getMaxBites()-1);
     }
 }

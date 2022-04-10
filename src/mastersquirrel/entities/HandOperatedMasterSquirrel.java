@@ -1,9 +1,6 @@
 package mastersquirrel.entities;
 
-import mastersquirrel.ConsoleUI;
-import mastersquirrel.EntityContext;
-import mastersquirrel.UI;
-import mastersquirrel.XY;
+import mastersquirrel.*;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel{
     UI consoleUI;
@@ -11,6 +8,8 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
     public HandOperatedMasterSquirrel(XY pos, UI consoleUI) {
         super(pos);
         this.consoleUI = consoleUI;
+        System.out.println();
+        System.out.println((Pathfinding.squirrelsInRange(pos,6)).toString());
     }
 
     @Override

@@ -7,6 +7,7 @@ import mastersquirrel.XY;
 public class MasterSquirrel extends Squirrel{
     public MasterSquirrel(XY pos){
         super(500,pos);
+        type = EntityType.MASTERSQUIRREL;
     }
 
     public void spawnMiniSquirrel(int energy){

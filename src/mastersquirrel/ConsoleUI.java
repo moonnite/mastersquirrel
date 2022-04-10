@@ -46,9 +46,13 @@ public class ConsoleUI implements UI {
                         System.out.print("\u001B[97m");
                         System.out.print("■");
                     }
-                    case EMPTY -> {
-                        System.out.print("\u001B[30m");
-                        System.out.print("□");
+                    case MINISQUIRREL -> {
+                        System.out.print("\u001B[35m");
+                        System.out.print("■");
+                    }
+                    case MASTERSQUIRREL -> {
+                        System.out.print("\u001B[36m");
+                        System.out.print("■");
                     }
                     default -> {
                         System.out.print("\u001B[30m");
