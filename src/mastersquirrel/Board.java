@@ -44,14 +44,14 @@ public class Board {
 
         for (int i = 0; i < boardConfig.WALL_COUNT; i++) {
             XY randomPos = getRandomPos();
-            randomPos = new XY(5,2);
+            randomPos = new XY(8,1+i);
             initRef = new Wall(randomPos);
             entitySet.put(initRef);
         }
 
         for (int i = 0; i < boardConfig.BAD_BEAST_COUNT; i++) {
             XY randomPos = getRandomPos();
-            randomPos = new XY(9,2);
+            randomPos = new XY(7,3);
             initRef = new BadBeast(randomPos);
             entitySet.put(initRef);
         }

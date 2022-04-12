@@ -2,7 +2,7 @@ package mastersquirrel.entities;
 
 import mastersquirrel.EntityContext;
 import mastersquirrel.EntitySet;
-import mastersquirrel.Pathfinding;
+import mastersquirrel.nanaastar.Pathfinding;
 import mastersquirrel.XY;
 
 public class MiniSquirrel extends Squirrel{

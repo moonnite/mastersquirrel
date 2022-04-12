@@ -7,6 +7,7 @@ public class BadBeast extends Movable{
 
     private final int MAX_COOLDOWN = 3;
     private final int MAX_BITES = 7;
+    private final int CHASE_RADIUS = 6;
     private int remainingBites = MAX_BITES;
 
     public BadBeast(XY pos){
@@ -46,5 +47,9 @@ public class BadBeast extends Movable{
 
     public int getRemainingBites() {
         return remainingBites;
+    }
+
+    public int getChaseRadius() {
+        return CHASE_RADIUS;
     }
 }

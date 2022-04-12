@@ -230,6 +230,6 @@ public class EntitySetTest {
 
         entitySet.nextStep(state.flattenBoard());
 
-        assertTrue(badBeastCustom.getRemainingBites() == badBeastCustom.getMaxBites()-1);
+        assertEquals(badBeastCustom.getRemainingBites(), badBeastCustom.getMaxBites() - 1);
     }
 }

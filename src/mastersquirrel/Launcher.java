@@ -5,13 +5,13 @@ public class Launcher {
 
         BoardConfig boardConfig = new BoardConfig(
                 new XY(30, 8),
+                5,
                 1,
                 1,
-                1,
-                1,
-                1,
-                1,
-                1);
+                0,
+                0,
+                0,
+                0);
 
         Board board = new Board(boardConfig);
         State state = new State(board);
