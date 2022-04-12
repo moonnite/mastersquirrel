@@ -1,6 +1,7 @@
 package mastersquirrel;
 
 import mastersquirrel.entities.*;
+import mastersquirrel.nanaastar.Pathfinding;
 
 public class FlattenedBoard implements EntityContext, BoardView{
 
@@ -40,7 +41,7 @@ public class FlattenedBoard implements EntityContext, BoardView{
 
     @Override
     public XY getSize() {
-        return new XY(boardArray[0].length,boardArray[1].length);
+        return new XY(boardArray.length,boardArray[0].length);
     }
 
     @Override
@@ -50,8 +51,26 @@ public class FlattenedBoard implements EntityContext, BoardView{
 
     @Override
     public void move(AEntity entity, XY moveDirection) {
-        //später hier kollisionsregeln
         XY newPos = XY.add(entity.getPosition(),moveDirection);
+
+        //Badbeast chasing squirrels
+        if(entity.getType() == EntityType.BADBEAST){
+            XY xyTemp = Pathfinding.findPath(entity.getPosition(),((BadBeast)entity).getChaseRadius(),this);
+            if(xyTemp != null){
+                newPos = XY.add(entity.getPosition(), xyTemp);
+            }
+        }
+
+        //Goodbeast running away from squirrels
+        if(entity.getType() == EntityType.GOODBEAST){
+            XY xyTemp = Pathfinding.findPath(entity.getPosition(),((GoodBeast)entity).getChaseRadius(),this);
+            if(xyTemp != null){
+                XY xyInverted = new XY(-xyTemp.getXLen(),-xyTemp.getYLen());
+                System.out.println("XYINV:  "+xyInverted);
+                newPos = XY.add(entity.getPosition(), xyInverted);
+            }
+        }
+
         AEntity entityOnNewPos = boardArray[newPos.getXLen()][newPos.getYLen()];
 
         //Move on empty + handle Collisions in checkCollisions

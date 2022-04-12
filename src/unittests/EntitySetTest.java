@@ -183,6 +183,40 @@ public class EntitySetTest {
     }
 
     @Test
+    public void testMovement() {
+        System.out.println("testMovement");
+        XY posToCheck = new XY(4,3);
+        BadBeast badBeastCustom = new BadBeast(new XY(3,3)){
+            @Override
+            public void nextStep(EntityContext entityContext) {
+                type = EntityType.BADBEAST;
+                entityContext.move(this,XY.RIGHT);
+            }
+        };
+
+        entitySet.put(badBeastCustom);
+
+        BoardConfig boardConfig = new BoardConfig(
+                new XY(15, 15),
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0);
+
+        Board board = new Board(boardConfig);
+        State state = new State(board);
+
+        entitySet.nextStep(state.flattenBoard());
+
+        //test for movement in given direction and collision
+        assertEquals(badBeastCustom.getPosition().getXLen(), posToCheck.getXLen());
+        assertEquals(badBeastCustom.getPosition().getYLen(), posToCheck.getYLen());
+    }
+
+    @Test
     public void testBite() {
         System.out.println("testBite");
         XY posToCheck = new XY(3,3);
