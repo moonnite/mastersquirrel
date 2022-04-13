@@ -16,21 +16,25 @@ public class MiniSquirrel extends Squirrel{
 
     @Override
     public void nextStep(EntityContext entityContext) {
-        updateEnergy(-1);
-        if(energy == 0){
-            kill();
+        if(energy > 0){
+            updateEnergy(-1);
         }
         super.nextStep(entityContext);
     }
 
     @Override
     public void updateEnergy(int energyDelta) {
-
+        energy+=energyDelta;
+        if(energy <= 0){
+            kill();
+        }
     }
 
     public void kill(){
-        EntitySet.getInstance().pull(getID());
-        Pathfinding.removeFromSquirrelList(this);
+        if(EntitySet.getInstance().get(getID()) != null){
+            EntitySet.getInstance().pull(getID());
+            Pathfinding.removeFromSquirrelList(this);
+        }
     }
 
     public AEntity getParent() {

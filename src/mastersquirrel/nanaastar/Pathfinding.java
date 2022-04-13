@@ -47,6 +47,10 @@ public class Pathfinding {
         for(Squirrel s:squirrelsInRange){
             //Sets shortestLength and nextPos
             aStar.run(flattenedBoard, startPos, s.getPosition());
+            if(tempLen<shortestLength){
+                shortestLength = tempLen;
+                nextPos = tempPos;
+            }
         }
 
         //once all pathfindings are done, check if shortest Path is within radius (moves)

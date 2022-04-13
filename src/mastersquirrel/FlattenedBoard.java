@@ -138,6 +138,7 @@ public class FlattenedBoard implements EntityContext, BoardView{
                         else{
                             ((MiniSquirrel)entityOnNewPos).kill();
                         }
+                        return true;
                     }
                 }
             }
@@ -153,10 +154,6 @@ public class FlattenedBoard implements EntityContext, BoardView{
                         return true;
                     }
                     case BADBEAST -> {
-                        entity.updateEnergy(entityOnNewPos.getEnergy());
-                        if(((BadBeast)entityOnNewPos).onBite()){
-                            entityOnNewPos.updatePosition(genRandomPos());
-                        }
                         return true;
                     }
                     case HANDOPERATEDMASTERSQUIRREL, MASTERSQUIRREL ->{
