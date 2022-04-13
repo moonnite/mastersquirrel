@@ -44,7 +44,9 @@ public class Pathfinding {
 
         AStar aStar = new AStar();
         //do A* pathfinding algorithm for all squirrels
-        for(Squirrel s:squirrelsInRange){
+        for(Squirrel s : squirrelsInRange){
+            int tempLen = shortestLength;
+            XY tempPos = nextPos;
             //Sets shortestLength and nextPos
             aStar.run(flattenedBoard, startPos, s.getPosition());
             if(tempLen<shortestLength){
