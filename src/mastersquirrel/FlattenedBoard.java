@@ -66,7 +66,7 @@ public class FlattenedBoard implements EntityContext, BoardView{
             XY xyTemp = Pathfinding.findPath(entity.getPosition(),((GoodBeast)entity).getChaseRadius(),this);
             if(xyTemp != null){
                 XY xyInverted = new XY(-xyTemp.getXLen(),-xyTemp.getYLen());
-                System.out.println("XYINV:  "+xyInverted);
+                //System.out.println("XYINV:  "+xyInverted);
                 newPos = XY.add(entity.getPosition(), xyInverted);
             }
         }
@@ -77,6 +77,20 @@ public class FlattenedBoard implements EntityContext, BoardView{
         if(!(checkCollisions(entity, entityOnNewPos))){
             entity.updatePosition(newPos);
         }
+    }
+
+    @Override
+    public void spawnMiniSquirrel(int energy, MasterSquirrel parent, XY dir) {
+
+        XY movePos = XY.add(parent.getPosition(),dir);
+
+        //if position where minisquirrel should be spawned is already used, generate new pos (infinite loop, when mastersquirrel is surrounded by entities)
+        for(int i = 0; i<=9 && boardArray[movePos.getXLen()][movePos.getYLen()] != null; i++){
+            if(i==9) return;
+            movePos = XY.add(parent.getPosition(),parent.getPosition().genNewDir());
+        }
+        MiniSquirrel ms = new MiniSquirrel(energy, movePos, parent);
+        EntitySet.getInstance().put(ms);
     }
 
     public boolean checkCollisions(AEntity entity, AEntity entityOnNewPos){

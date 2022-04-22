@@ -1,4 +1,4 @@
-package mastersquirrel;
+package mastersquirrel.Exeptions;
 
 public class ElementAlreadyExistsException extends RuntimeException{
     public  ElementAlreadyExistsException(){super();}

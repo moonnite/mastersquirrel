@@ -4,6 +4,8 @@ import mastersquirrel.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import mastersquirrel.Exeptions.ElementAlreadyExistsException;
+import mastersquirrel.Exeptions.ElementNotInListException;
 import mastersquirrel.entities.*;
 
 import org.junit.jupiter.api.AfterEach;

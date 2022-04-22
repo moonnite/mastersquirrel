@@ -5,15 +5,31 @@ import mastersquirrel.RandomDirection;
 import mastersquirrel.XY;
 
 public class MasterSquirrel extends Squirrel{
+
+    protected boolean newMiniSquirrelSpawn = false;
+    protected int newMiniSquirrelEnergy;
+    protected XY newMiniSquirrelDirection;
+
     public MasterSquirrel(XY pos){
         super(500,pos);
         type = EntityType.MASTERSQUIRREL;
     }
 
-    public void spawnMiniSquirrel(int energy){
+    @Override
+    public void nextStep(EntityContext entityContext) {
+        if(newMiniSquirrelSpawn){
+            entityContext.spawnMiniSquirrel(newMiniSquirrelEnergy,this,this.position.genNewDir());
+            newMiniSquirrelSpawn = false;
+        }
+        super.nextStep(entityContext);
+    }
+
+    public void spawnMiniSquirrel(int energy) throws NotEnoughEnergyException {
         //only donate energy when player squirrel has enough energy
-        if(this.energy < energy) return;
-        MiniSquirrel ms = new MiniSquirrel(energy, XY.add(position,position.genNewDir()),this);
+        if(this.energy < energy) throw new NotEnoughEnergyException();
         updateEnergy(-energy);
+        newMiniSquirrelSpawn = true;
+        newMiniSquirrelEnergy = energy;
+        newMiniSquirrelDirection = position.genNewDir();
     }
 }

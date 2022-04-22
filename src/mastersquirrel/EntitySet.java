@@ -1,5 +1,7 @@
 package mastersquirrel;
 
+import mastersquirrel.Exeptions.ElementAlreadyExistsException;
+import mastersquirrel.Exeptions.ElementNotInListException;
 import mastersquirrel.entities.AEntity;
 
 import java.util.*;
@@ -127,7 +129,7 @@ public class EntitySet {
             count++;
             a.nextStep(entityContext);
         }
-        System.out.println("Updated "+count+" entities.");
+        //System.out.println("Updated "+count+" entities.");
     }
 
     //anonymous class

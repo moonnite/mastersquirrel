@@ -2,23 +2,32 @@ package mastersquirrel;
 
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
+import mastersquirrel.util.consoletest.ConsoleTestCommandType;
+import mastersquirrel.util.ui.console.Command;
+import mastersquirrel.util.ui.console.CommandScanner;
+import mastersquirrel.util.ui.console.GameCommandType;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 
 public class ConsoleUI implements UI {
 
-    Scanner s = new Scanner(System.in);
+    private final PrintStream outputStream = System.out;
+    private final BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+
+    CommandScanner commandScanner = new CommandScanner(GameCommandType.values(), inputReader);
 
     @Override
     public void render(BoardView view) {
-        AEntity[][] boardArray= view.getBoardArray();
+        AEntity[][] boardArray = view.getBoardArray();
 
         //print Board
         for (int i = 0; i < boardArray[0].length; i++) {
             for (int j = 0; j < boardArray.length; j++) {
                 EntityType type = EntityType.EMPTY;
-                if(boardArray[j][i] != null){
+                if (boardArray[j][i] != null) {
                     type = boardArray[j][i].getType();
                 }
                 switch (type) {
@@ -63,8 +72,7 @@ public class ConsoleUI implements UI {
             }
             System.out.println();
         }
-        printStats(boardArray);
-
+        //printStats(boardArray);
     }
 
     public void printStats(AEntity[][] boardArray) {
@@ -73,14 +81,27 @@ public class ConsoleUI implements UI {
                 EntityType type = EntityType.EMPTY;
                 if (boardArray[j][i] != null) {
                     if (boardArray[j][i].getType() != EntityType.WALL) {
-                        System.out.println(boardArray[j][i].getID() + " " + boardArray[j][i].getType() + " Energy:" + boardArray[j][i].getEnergy()+ "                         " + boardArray[j][i].getPosition());
+                        System.out.println(boardArray[j][i].getID() + " " + boardArray[j][i].getType() + " Energy:" + boardArray[j][i].getEnergy() + "                         " + boardArray[j][i].getPosition());
                     }
                 }
             }
         }
     }
 
-    public String getInput(){
-        return s.nextLine();
+    @Override
+    public Command getCommand() {
+        return commandScanner.next();
+    }
+
+    @Override
+    public void message(String msg) {
+        outputStream.println(msg);
+    }
+
+    @Override
+    public void help(){
+        for(GameCommandType t : GameCommandType.values()){
+            message(t.getName()+" "+t.getHelpText());
+        }
     }
 }

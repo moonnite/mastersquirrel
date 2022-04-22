@@ -59,8 +59,8 @@ public class Pathfinding {
         //true --> return new Direction facing towards target position
         if(shortestLength < radius){
             if(nextPos != null) {
-                System.out.println(nextPos);
-                System.out.println(startPos);
+                //System.out.println(nextPos);
+                //System.out.println(startPos);
                 return new XY(nextPos.getXLen() - startPos.getXLen(), nextPos.getYLen() - startPos.getYLen());
             }
         }
