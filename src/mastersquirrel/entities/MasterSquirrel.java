@@ -1,7 +1,7 @@
 package mastersquirrel.entities;
 
 import mastersquirrel.EntityContext;
-import mastersquirrel.RandomDirection;
+import mastersquirrel.Exeptions.NotEnoughEnergyException;
 import mastersquirrel.XY;
 
 public class MasterSquirrel extends Squirrel{

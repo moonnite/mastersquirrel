@@ -6,5 +6,7 @@ import java.io.IOException;
 
 public interface UI {
     public void render(BoardView boardView);
-    public String getInput();
+    public Command getCommand();
+    public void message(String msg);
+    public void help();
 }

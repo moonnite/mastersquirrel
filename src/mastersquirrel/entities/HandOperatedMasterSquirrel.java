@@ -4,14 +4,14 @@ import mastersquirrel.*;
 import mastersquirrel.nanaastar.Pathfinding;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel{
-    UI consoleUI;
+
+    private XY dir;
+    private boolean inputUpdated = false;
 
     public HandOperatedMasterSquirrel(XY pos, UI consoleUI) {
         super(pos);
-        this.consoleUI = consoleUI;
         type = EntityType.HANDOPERATEDMASTERSQUIRREL;
         Pathfinding.addToSquirrelList(this);
-
     }
 
     @Override
@@ -21,22 +21,19 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
             return;
         }
 
-        switch(consoleUI.getInput()){
-            case "w"-> {
-                entityContext.move(this,XY.UP);
-            }
-            case "a" -> {
-                entityContext.move(this,XY.LEFT);
-            }
-            case "s" -> {
-                entityContext.move(this,XY.DOWN);
-            }
-            case "d" -> {
-                entityContext.move(this,XY.RIGHT);
-            }
-            default -> {
-                System.out.println("Wrong Input");
-            }
+        if(inputUpdated) {
+            entityContext.move(this, dir);
+            inputUpdated = false;
         }
+
+        if(newMiniSquirrelSpawn){
+            entityContext.spawnMiniSquirrel(newMiniSquirrelEnergy,this,newMiniSquirrelDirection);
+            newMiniSquirrelSpawn = false;
+        }
+    }
+    
+    public void setInput(XY dir){
+        inputUpdated = true;
+        this.dir = dir;
     }
 }
