@@ -1,5 +1,7 @@
 package mastersquirrel.util.ui.console;
 
+import java.util.ArrayList;
+
 public enum GameCommandType implements CommandTypeInfo {
 
         HELP("help"," * list all commands", null),
