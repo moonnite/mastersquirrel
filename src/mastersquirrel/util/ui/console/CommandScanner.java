@@ -34,24 +34,21 @@ public class CommandScanner {
         //check if input matches a command type (+ arguments)
         for (CommandTypeInfo cT : commandTypeInfos) {
             if(splittedOutput[0].toLowerCase().equals(cT.getName())){
-                //Check for wrong parameterCount
-                if(splittedOutput.length-1 != cT.getParamTypes().length){
-                    throw new ScanExeption("wrong parameter count");
+                //Check for oblig param count
+                if(splittedOutput.length-1 < cT.getObligParams().length){
+                    throw new ScanExeption("too few arguments");
+                }
+                //Check for opt param count
+                if(splittedOutput.length-1-cT.getObligParams().length > cT.getOptParams().length){
+                    throw new ScanExeption("too many arguments");
                 }
                 //Check for command without parameters
                 if(splittedOutput.length-1 == 0){
                     return new Command(cT,null);
                 }
 
-//                for(int i = 1; i < splittedOutput.length; i++){
-//                    try{
-//                        Class<?> clazz = cT.getParamTypes()[i];
-//                        clazz.cast(splittedOutput[i]);
-//                    }
-//                    catch (Exception e){
-//                        throw new ScanExeption("wrong parameter type(s)");
-//                    }
-//                }
+                //here you may validate parameter types
+                //...
 
                 //command with parameters
                 return new Command(cT,Arrays.copyOfRange(splittedOutput,1,splittedOutput.length));

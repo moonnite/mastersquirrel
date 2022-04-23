@@ -2,13 +2,11 @@ package mastersquirrel;
 
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
-import mastersquirrel.util.consoletest.ConsoleTestCommandType;
 import mastersquirrel.util.ui.console.Command;
 import mastersquirrel.util.ui.console.CommandScanner;
 import mastersquirrel.util.ui.console.GameCommandType;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 

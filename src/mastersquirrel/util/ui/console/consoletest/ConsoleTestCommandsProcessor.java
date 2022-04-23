@@ -1,11 +1,10 @@
-package mastersquirrel.util.consoletest;
+package mastersquirrel.util.ui.console.consoletest;
 
 import mastersquirrel.Exeptions.ScanExeption;
 import mastersquirrel.util.ui.console.Command;
 import mastersquirrel.util.ui.console.CommandScanner;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.Arrays;

@@ -2,43 +2,44 @@ package mastersquirrel.util.ui.console;
 
 public enum GameCommandType implements CommandTypeInfo {
 
-        HELP("help"," * list all commands"),
-        EXIT("exit"," * exit program"),
+        HELP("help"," * list all commands", null),
+        EXIT("exit"," * exit program",null),
 
-        ALL("all"," * print all Entitys on board"),
+        ALL("all"," * print all Entitys on board",null),
 
-        LEFT("a"," * move left"),
-        UP("w"," * move up"),
-        DOWN("s"," * move down"),
-        RIGHT("d"," * move right"),
+        LEFT("a"," * move left",null),
+        UP("w"," * move up",null),
+        DOWN("s"," * move down",null),
+        RIGHT("d"," * move right",null),
 
-        MASTER_ENERGY("masterenergy"," * print Energy of Master Squirrel"),
-        SPAWN_MINI("spawnmini","<param1> * spawn Mini Squirrel with param1 amount of energy", int.class);
+        MASTER_ENERGY("masterenergy"," * print Energy of Master Squirrel",null),
+        SPAWN_MINI("spawnmini","<param1> * spawn Mini Squirrel with param1 amount of energy", new Class<?>[] {int.class});
 
         private final String name;
         private final String helpText;
-        private final Class<?> param1;
-        private final Class<?> param2;
+        private final Class<?>[] obligParams;
+        private final Class<?>[] optParams;
 
-    GameCommandType(String name, String helpText){
+    GameCommandType(String name, String helpText, Class<?>[] obligParams, Class<?>... optParams){
             this.name = name;
             this.helpText = helpText;
-            this.param1 = null;
-            this.param2 = null;
-        }
 
-    GameCommandType(String name, String helpText, Class<?> param1){
-        this.name = name;
-        this.helpText = helpText;
-        this.param1 = param1;
-        this.param2 = null;
-    }
-
-    GameCommandType(String name, String helpText, Class<?> param1, Class<?> param2){
-            this.name = name;
-            this.helpText = helpText;
-            this.param1 = param1;
-            this.param2 = param2;
+            //obligatory parameters
+            if(obligParams == null){
+                this.obligParams = new Class<?>[0];
+            }
+            else{
+                this.obligParams = new Class<?>[obligParams.length];
+                System.arraycopy(obligParams, 0, this.obligParams, 0, obligParams.length);
+            }
+            //optional parameters
+            if(optParams == null){
+                this.optParams = new Class<?>[0];
+            }
+            else{
+               this.optParams = new Class<?>[optParams.length];
+               System.arraycopy(optParams, 0, this.optParams, 0, optParams.length);
+            }
         }
 
         @Override
@@ -52,16 +53,12 @@ public enum GameCommandType implements CommandTypeInfo {
         }
 
         @Override
-        public Class<?>[] getParamTypes() {
-            if(param1 == null && param2 == null){
-                return new Class<?>[] {};
-            }
-            else if(param1 == null){
-                return new Class<?>[] {param2};
-            }
-            else if(param2 == null){
-                return new Class<?>[] {param1};
-            }
-            return new Class<?>[] {param1,param2};
+        public Class<?>[] getObligParams() {
+            return obligParams;
+        }
+        
+        @Override
+        public Class<?>[] getOptParams() {
+            return optParams;
         }
 }

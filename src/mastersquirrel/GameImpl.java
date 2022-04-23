@@ -6,6 +6,9 @@ import mastersquirrel.entities.HandOperatedMasterSquirrel;
 import mastersquirrel.util.ui.console.Command;
 import mastersquirrel.util.ui.console.GameCommandType;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
 public class GameImpl extends Game{
 
     HandOperatedMasterSquirrel handOperatedMasterSquirrel;
@@ -29,37 +32,68 @@ public class GameImpl extends Game{
         }
 
         GameCommandType commandType = (GameCommandType) command.getCommandType();
+        try{
+            Method method;
+            if(command.getParams() != null){
+                method = this.getClass().getDeclaredMethod(commandType.getName(), Object[].class);
+                System.out.println(Arrays.toString(method.getParameterTypes()));
+                method.invoke(this, (Object)command.getParams());
+            }
+            else{
+                method = this.getClass().getDeclaredMethod(commandType.getName());
+                method.invoke(this);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
+            System.out.println("sheise, die girbts nic");
+        }
+    }
 
-        switch(commandType){
-            case EXIT -> System.exit(0);
-            case HELP -> consoleUI.help();
-            case ALL -> {
-                consoleUI.message("Entities on board: ");
-                consoleUI.message(entitySet.listToString());
-            }
-            case UP -> handOperatedMasterSquirrel.setInput(XY.UP);
-            case DOWN -> handOperatedMasterSquirrel.setInput(XY.DOWN);
-            case LEFT -> handOperatedMasterSquirrel.setInput(XY.LEFT);
-            case RIGHT -> handOperatedMasterSquirrel.setInput(XY.RIGHT);
-            case SPAWN_MINI -> {
-                int miniEnergy;
-                try{
-                    miniEnergy = Integer.parseInt((String)command.getParams()[0]);
-                }
-                catch (Exception e){
-                    throw new ScanExeption("wrong parameter type(s)");
-                }
-                try{
-                    handOperatedMasterSquirrel.spawnMiniSquirrel(miniEnergy);
-                }
-                catch(NotEnoughEnergyException e){
-                    e.printStackTrace();
-                }
-            }
-            case MASTER_ENERGY -> {
-                consoleUI.message("MasterSquirrel Energy: ");
-                consoleUI.message(Integer.toString(handOperatedMasterSquirrel.getEnergy()));
-            }
+    private void exit(){
+        System.exit(0);
+    }
+
+    private void help(){
+        consoleUI.help();
+    }
+
+    private void all(){
+        consoleUI.message("Entities on board: ");
+        consoleUI.message(entitySet.listToString());
+    }
+
+    private void w(){
+        handOperatedMasterSquirrel.setInput(XY.UP);
+    }
+    private void s(){
+        handOperatedMasterSquirrel.setInput(XY.DOWN);
+    }
+    private void a(){
+        handOperatedMasterSquirrel.setInput(XY.LEFT);
+    }
+    private void d(){
+        handOperatedMasterSquirrel.setInput(XY.RIGHT);
+    }
+
+    private void masterenergy(){
+        consoleUI.message("MasterSquirrel Energy: ");
+        consoleUI.message(Integer.toString(handOperatedMasterSquirrel.getEnergy()));
+    }
+
+    private void spawnmini(Object[] params){
+        int miniEnergy;
+        try{
+            miniEnergy = Integer.parseInt((String)params[0]);
+        }
+        catch (Exception e){
+            throw new ScanExeption("wrong parameter type(s)");
+        }
+        try{
+            handOperatedMasterSquirrel.spawnMiniSquirrel(miniEnergy);
+        }
+        catch(NotEnoughEnergyException e){
+            e.printStackTrace();
         }
     }
 
