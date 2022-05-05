@@ -1,6 +1,31 @@
 package mastersquirrel;
 
-public class Launcher {
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import mastersquirrel.util.ui.ConsoleUI;
+import mastersquirrel.util.ui.FxUI;
+import mastersquirrel.util.ui.UI;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class Launcher extends Application {
+
+    private static UI ui;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Mastersquirrel");
+        primaryStage.setScene(new Scene((FxUI)ui, 500,500));
+        primaryStage.show();
+    }
+
     public static void main(String[] args) {
 
         BoardConfig boardConfig = new BoardConfig(
@@ -16,12 +41,41 @@ public class Launcher {
         Board board = new Board(boardConfig);
         State state = new State(board);
 
-        //modularer Character: hier einfach eine andere UI Implementierung angeben statt ConsoleUI
-        //(diese muss natürlich UI implementen)
-        ConsoleUI consoleUI = new ConsoleUI();
-
-        GameImpl game = new GameImpl(state, consoleUI);
-
-        game.run(state.getBoard().flatten());
+        if(args.length != 0 && args[0].equals("-console")){
+            System.out.println("Running on console:");
+            ui = new ConsoleUI();
+            GameImpl game = new GameImpl(state, ui);
+            startGame(game,state.getBoard().flatten());
+        }
+        else{
+            System.out.println("Running on GUI:");
+            //run GUI view of game
+            ui = new FxUI();
+            GameImpl game = new GameImpl(state, ui);
+            startGame(game,state.getBoard().flatten());
+            launch(args);
+        }
     }
+
+    public static void startGame(GameImpl game, BoardView board) {
+        Timer timer = new Timer();
+
+        System.out.print("Starting Game");
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            int i = 0;
+            @Override
+            public void run() {
+                i++;
+                if(i==4) {
+                    timer.cancel();
+                    System.out.println();
+                    game.run(board);
+                    return;
+                }
+                System.out.print(".");
+            }
+        }, 0, 1000);
+    }
+
 }

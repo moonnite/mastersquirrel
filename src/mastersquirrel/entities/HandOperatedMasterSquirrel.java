@@ -2,6 +2,7 @@ package mastersquirrel.entities;
 
 import mastersquirrel.*;
 import mastersquirrel.nanaastar.Pathfinding;
+import mastersquirrel.util.ui.UI;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel{
 

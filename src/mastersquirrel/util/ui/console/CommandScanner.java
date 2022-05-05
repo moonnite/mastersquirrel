@@ -20,12 +20,17 @@ public class CommandScanner {
     public Command next(){
 
         //get next console line
-        String newLine;
-        try{
-            newLine = inputReader.readLine();
-        }
-        catch (Exception e){
-            return null;
+        String newLine = "";
+
+        try {
+            if(inputReader.ready()){
+                newLine = inputReader.readLine();
+            }
+            else{
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         //split input string on spaces

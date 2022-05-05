@@ -1,10 +1,9 @@
 package mastersquirrel;
 
-import javax.swing.text.View;
-
 public abstract class Game{
 
     State state;
+    private final int FPS = 1;
 
     public Game(State state){
         this.state = state;
@@ -15,6 +14,12 @@ public abstract class Game{
             render(boardView);
             processInput();
             update();
+            try{
+                Thread.sleep(1000/FPS);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

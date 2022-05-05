@@ -3,6 +3,7 @@ package mastersquirrel;
 import mastersquirrel.Exeptions.NotEnoughEnergyException;
 import mastersquirrel.Exeptions.ScanExeption;
 import mastersquirrel.entities.HandOperatedMasterSquirrel;
+import mastersquirrel.util.ui.UI;
 import mastersquirrel.util.ui.console.Command;
 import mastersquirrel.util.ui.console.GameCommandType;
 
@@ -15,10 +16,10 @@ public class GameImpl extends Game{
     EntitySet entitySet = EntitySet.getInstance();
     UI consoleUI;
 
-    public GameImpl(State state, UI consoleUI) {
+    public GameImpl(State state, UI ui) {
         super(state);
-        this.consoleUI = consoleUI;
-        handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1),consoleUI);
+        this.consoleUI = ui;
+        handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1),ui);
         entitySet.put(handOperatedMasterSquirrel);
     }
 

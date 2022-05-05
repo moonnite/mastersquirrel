@@ -1,7 +1,9 @@
-package mastersquirrel;
+package mastersquirrel.util.ui;
 
+import mastersquirrel.BoardView;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
+import mastersquirrel.util.ui.UI;
 import mastersquirrel.util.ui.console.Command;
 import mastersquirrel.util.ui.console.CommandScanner;
 import mastersquirrel.util.ui.console.GameCommandType;
@@ -19,6 +21,10 @@ public class ConsoleUI implements UI {
 
     @Override
     public void render(BoardView view) {
+        //clear terminal view
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
         AEntity[][] boardArray = view.getBoardArray();
 
         //print Board
