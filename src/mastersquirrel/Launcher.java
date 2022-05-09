@@ -16,14 +16,14 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Mastersquirrel");
-        primaryStage.setScene(new Scene((FxUI)ui, 500,500));
+        primaryStage.setScene(new Scene((FxUI) ui, 1100, 700));
         primaryStage.show();
     }
 
     public static void main(String[] args) {
 
         BoardConfig boardConfig = new BoardConfig(
-                new XY(30, 8),
+                new XY(50, 50),
                 5,
                 1,
                 1,
@@ -35,18 +35,17 @@ public class Launcher extends Application {
         Board board = new Board(boardConfig);
         State state = new State(board);
 
-        if(args.length != 0 && args[0].equals("-console")){
+        if (args.length != 0 && args[0].equals("-console")) {
             System.out.println("Running on console:");
             ui = new ConsoleUI();
             GameImpl game = new GameImpl(state, ui);
-            startGame(game,state.getBoard().flatten());
-        }
-        else{
+            startGame(game, state.getBoard().flatten());
+        } else {
             System.out.println("Running on GUI:");
             //run GUI view of game
             ui = new FxUI();
             GameImpl game = new GameImpl(state, ui);
-            startGame(game,state.getBoard().flatten());
+            startGame(game, state.getBoard().flatten());
             launch(args);
         }
     }
@@ -63,10 +62,11 @@ public class Launcher extends Application {
 
         timer.scheduleAtFixedRate(new TimerTask() {
             int i = 0;
+
             @Override
             public void run() {
                 i++;
-                if(i==4) {
+                if (i == 4) {
                     timer.cancel();
                     System.out.println();
                     game.run(board);
@@ -74,7 +74,6 @@ public class Launcher extends Application {
                 }
                 System.out.print(".");
             }
-        }, 0, (int)waitFor);
+        }, 0, (int) waitFor);
     }
-
 }

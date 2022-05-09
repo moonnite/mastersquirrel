@@ -5,11 +5,17 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import mastersquirrel.BoardView;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
+import mastersquirrel.entities.Squirrel;
+import mastersquirrel.nanaastar.Pathfinding;
 import mastersquirrel.util.ui.console.Command;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class FxUI extends BorderPane implements UI {
     private final int SCALE = 10;
@@ -25,14 +31,28 @@ public class FxUI extends BorderPane implements UI {
         this.setBottom(message);
 
         //middle left
+        Label controls = new Label("Controls");
+        Button pauseBtn = new Button("Pause");
+        Button resumeBtn = new Button("Resume");
+        VBox vboxLeft = new VBox();
+        vboxLeft.getChildren().addAll(controls,pauseBtn,resumeBtn);
+
+        for(EntityType e : EntityType.values()){
+            Label tempLabel = new Label( e.getType());
+            //tempLabel.setTextFill(e.getColor());
+            vboxLeft.getChildren().add(tempLabel);
+        }
+
+        vboxLeft.setSpacing(5);
+        this.setLeft(vboxLeft);
 
         //middle center
         this.canvasPane = new BorderPane();
         this.setCenter(canvasPane);
 
         //middle right
-
-
+        infoPaneRight = new BorderPane();
+        this.setRight(infoPaneRight);
     }
 
     private MenuBar createMenuBar() {
@@ -46,6 +66,23 @@ public class FxUI extends BorderPane implements UI {
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().add(fileMenuItem);
         return menuBar;
+    }
+
+    private void updateInfo(BorderPane infoPaneRight, ArrayList<Squirrel> squirrelArrayList){
+        if(infoPaneRight.getCenter() == null){
+            VBox vboxRight = new VBox();
+            vboxRight.setSpacing(5);
+            infoPaneRight.setCenter(vboxRight);
+        }
+        VBox vBox = (VBox) infoPaneRight.getCenter();
+        System.out.println("looool");
+        System.out.println(vBox.getChildren());
+        vBox.getChildren().clear();
+
+        for(Squirrel s : squirrelArrayList){
+            Label label = new Label(s.getType()+": "+s.getEnergy());
+            vBox.getChildren().add(label);
+        }
     }
 
     private void drawBoardInPane(BorderPane canvasPane, AEntity[][] boardArray){
@@ -80,6 +117,7 @@ public class FxUI extends BorderPane implements UI {
     public void render(BoardView boardView) {
         //TODO: spielfeld aktualisieren
         drawBoardInPane(this.canvasPane, boardView.getBoardArray());
+        updateInfo(this.infoPaneRight, Pathfinding.getSquirrelArrayList());
     }
 
     @Override
