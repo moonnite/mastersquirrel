@@ -1,16 +1,10 @@
 package mastersquirrel;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import mastersquirrel.util.ui.ConsoleUI;
-import mastersquirrel.util.ui.FxUI;
-import mastersquirrel.util.ui.UI;
+import mastersquirrel.util.ui.*;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,6 +52,11 @@ public class Launcher extends Application {
     }
 
     public static void startGame(GameImpl game, BoardView board) {
+        //delay in seconds
+        double waitFor = 0.01;
+        //convert for 3 rounds in milliseconds
+        waitFor = (waitFor / 3) * 1000;
+
         Timer timer = new Timer();
 
         System.out.print("Starting Game");
@@ -75,7 +74,7 @@ public class Launcher extends Application {
                 }
                 System.out.print(".");
             }
-        }, 0, 1000);
+        }, 0, (int)waitFor);
     }
 
 }

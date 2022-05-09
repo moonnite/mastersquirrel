@@ -3,7 +3,7 @@ package mastersquirrel;
 public abstract class Game{
 
     State state;
-    private final int FPS = 1;
+    private final int FPS = 60;
 
     public Game(State state){
         this.state = state;
