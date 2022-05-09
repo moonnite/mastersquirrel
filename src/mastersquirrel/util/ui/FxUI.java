@@ -102,17 +102,7 @@ public class FxUI extends BorderPane implements UI {
                 EntityType type = EntityType.EMPTY;
                 if (boardArray[x][y] != null) type = boardArray[x][y].getType();
 
-                switch (type) {
-                    case GOODBEAST -> graphicsContext.setFill(Color.LIMEGREEN);
-                    case BADBEAST -> graphicsContext.setFill(Color.MEDIUMVIOLETRED);
-                    case GOODPLANT -> graphicsContext.setFill(Color.DARKGREEN);
-                    case BADPLANT -> graphicsContext.setFill(Color.GREENYELLOW);
-                    case WALL -> graphicsContext.setFill(Color.DARKGREY);
-                    case HANDOPERATEDMASTERSQUIRREL -> graphicsContext.setFill(Color.BLUEVIOLET);
-                    case MINISQUIRREL -> graphicsContext.setFill(Color.HOTPINK);
-                    case MASTERSQUIRREL -> graphicsContext.setFill(Color.VIOLET);
-                    default -> graphicsContext.setFill(Color.LIGHTGREY);
-                }
+                graphicsContext.setFill(type.getColor());
                 graphicsContext.fillRect(x*SCALE,y*SCALE,SCALE,SCALE);
             }
         }
