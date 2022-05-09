@@ -1,12 +1,14 @@
 package mastersquirrel.util.ui;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import mastersquirrel.BoardView;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
@@ -14,12 +16,14 @@ import mastersquirrel.entities.Squirrel;
 import mastersquirrel.nanaastar.Pathfinding;
 import mastersquirrel.util.ui.console.Command;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FxUI extends BorderPane implements UI {
+
     private final int SCALE = 10;
+
     private final BorderPane canvasPane;
+    private final BorderPane infoPaneRight;
 
     public FxUI() {
         //top
@@ -37,10 +41,15 @@ public class FxUI extends BorderPane implements UI {
         VBox vboxLeft = new VBox();
         vboxLeft.getChildren().addAll(controls,pauseBtn,resumeBtn);
 
+        Separator separator = new Separator();
+        vboxLeft.getChildren().add(new Separator());
+
         for(EntityType e : EntityType.values()){
-            Label tempLabel = new Label( e.getType());
-            //tempLabel.setTextFill(e.getColor());
-            vboxLeft.getChildren().add(tempLabel);
+            Text color = new Text("■");
+            color.setFill(e.getColor());
+            TextFlow tempTextFlow = new TextFlow();
+            tempTextFlow.getChildren().addAll(color,new Text(" "+e.getType()));
+            vboxLeft.getChildren().add(tempTextFlow);
         }
 
         vboxLeft.setSpacing(5);
@@ -52,6 +61,9 @@ public class FxUI extends BorderPane implements UI {
 
         //middle right
         infoPaneRight = new BorderPane();
+        VBox vboxRight = new VBox();
+        vboxRight.setSpacing(5);
+        infoPaneRight.setCenter(vboxRight);
         this.setRight(infoPaneRight);
     }
 
@@ -68,15 +80,8 @@ public class FxUI extends BorderPane implements UI {
         return menuBar;
     }
 
-    private void updateInfo(BorderPane infoPaneRight, ArrayList<Squirrel> squirrelArrayList){
-        if(infoPaneRight.getCenter() == null){
-            VBox vboxRight = new VBox();
-            vboxRight.setSpacing(5);
-            infoPaneRight.setCenter(vboxRight);
-        }
+    private void updateInfo(ArrayList<Squirrel> squirrelArrayList){
         VBox vBox = (VBox) infoPaneRight.getCenter();
-        System.out.println("looool");
-        System.out.println(vBox.getChildren());
         vBox.getChildren().clear();
 
         for(Squirrel s : squirrelArrayList){
@@ -85,7 +90,7 @@ public class FxUI extends BorderPane implements UI {
         }
     }
 
-    private void drawBoardInPane(BorderPane canvasPane, AEntity[][] boardArray){
+    private void drawBoardInPane(AEntity[][] boardArray){
         if(canvasPane.getChildren().isEmpty()){
             canvasPane.setCenter(new Canvas(boardArray.length * SCALE, boardArray[0].length * SCALE));
         }
@@ -116,8 +121,15 @@ public class FxUI extends BorderPane implements UI {
     @Override
     public void render(BoardView boardView) {
         //TODO: spielfeld aktualisieren
-        drawBoardInPane(this.canvasPane, boardView.getBoardArray());
-        updateInfo(this.infoPaneRight, Pathfinding.getSquirrelArrayList());
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                drawBoardInPane(boardView.getBoardArray());
+                updateInfo(Pathfinding.getSquirrelArrayList());
+            }
+        });
+
     }
 
     @Override

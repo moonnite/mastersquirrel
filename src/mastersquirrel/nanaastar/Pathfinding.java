@@ -82,4 +82,8 @@ public class Pathfinding {
     public static XY getNextPos(){
         return nextPos;
     }
+
+    public static ArrayList<Squirrel> getSquirrelArrayList() {
+        return squirrelArrayList;
+    }
 }
