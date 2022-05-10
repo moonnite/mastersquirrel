@@ -1,6 +1,8 @@
 package mastersquirrel.util.ui;
 
+import javafx.stage.Stage;
 import mastersquirrel.BoardView;
+import mastersquirrel.GameImpl;
 import mastersquirrel.util.ui.console.Command;
 
 import java.io.IOException;

@@ -1,6 +1,7 @@
 package mastersquirrel.util.ui;
 
 import mastersquirrel.BoardView;
+import mastersquirrel.GameImpl;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
 import mastersquirrel.util.ui.UI;

@@ -3,7 +3,8 @@ package mastersquirrel;
 public abstract class Game{
 
     State state;
-    private final int FPS = 60;
+    private final int FPS = 10;
+    protected boolean paused = false;
 
     public Game(State state){
         this.state = state;
@@ -11,9 +12,13 @@ public abstract class Game{
 
     public void run(BoardView boardView){
         while(true){
+
             render(boardView);
+
             processInput();
-            update();
+
+            if(!paused) update();
+
             try{
                 Thread.sleep(1000/FPS);
             }
@@ -25,6 +30,8 @@ public abstract class Game{
 
     //process user Input
     protected abstract void processInput();
+
+    public abstract void receiveInput(String keyEvent);
 
     protected abstract void update(); //change current game state
 

@@ -14,19 +14,33 @@ public class GameImpl extends Game{
 
     HandOperatedMasterSquirrel handOperatedMasterSquirrel;
     EntitySet entitySet = EntitySet.getInstance();
-    UI consoleUI;
+    UI ui;
 
     public GameImpl(State state, UI ui) {
         super(state);
-        this.consoleUI = ui;
+        this.ui = ui;
         handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1),ui);
         entitySet.put(handOperatedMasterSquirrel);
+    }
+
+    public void receiveInput(String keyEvent){
+        switch (keyEvent){
+            case "w" -> w();
+            case "a" -> a();
+            case "s" -> s();
+            case "d" -> d();
+            case "togglePause" -> switchPauseState();
+        }
+    }
+
+    private void switchPauseState() {
+        paused = !paused;
     }
 
     @Override
     protected void processInput() {
 
-        Command command = consoleUI.getCommand();
+        Command command = ui.getCommand();
 
         if(command == null){
             return;
@@ -47,7 +61,6 @@ public class GameImpl extends Game{
         }
         catch(Exception e){
             System.out.println(e);
-            System.out.println("sheise, die girbts nic");
         }
     }
 
@@ -56,12 +69,12 @@ public class GameImpl extends Game{
     }
 
     private void help(){
-        consoleUI.help();
+        ui.help();
     }
 
     private void all(){
-        consoleUI.message("Entities on board: ");
-        consoleUI.message(entitySet.listToString());
+        ui.message("Entities on board: ");
+        ui.message(entitySet.listToString());
     }
 
     private void w(){
@@ -78,8 +91,8 @@ public class GameImpl extends Game{
     }
 
     private void masterenergy(){
-        consoleUI.message("MasterSquirrel Energy: ");
-        consoleUI.message(Integer.toString(handOperatedMasterSquirrel.getEnergy()));
+        ui.message("MasterSquirrel Energy: ");
+        ui.message(Integer.toString(handOperatedMasterSquirrel.getEnergy()));
     }
 
     private void spawnmini(Object[] params){
@@ -105,6 +118,6 @@ public class GameImpl extends Game{
 
     @Override
     public void render(BoardView boardView) {
-        consoleUI.render(state.flattenBoard());
+        ui.render(state.flattenBoard());
     }
 }

@@ -4,12 +4,16 @@ import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 import mastersquirrel.BoardView;
+import mastersquirrel.Game;
+import mastersquirrel.GameImpl;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
 import mastersquirrel.entities.Squirrel;
@@ -18,26 +22,39 @@ import mastersquirrel.util.ui.console.Command;
 
 import java.util.ArrayList;
 
-public class FxUI extends BorderPane implements UI {
+public class FxUI extends BorderPane implements UI{
 
-    private final int SCALE = 10;
+    private int pixelScale = 10;
+
+    final KeyCombination kbPause = new KeyCodeCombination(KeyCode.P, KeyCombination.CONTROL_DOWN);
 
     private final BorderPane canvasPane;
     private final BorderPane infoPaneRight;
+
+    private Button pauseBtn;
+    private Button resumeBtn;
+    private MenuItem pauseMenuItem;
+    private MenuItem resumeMenuItem;
+
+    private Label message;
+
+    private boolean paused = false;
+
+    private Game game;
+    private Stage stage;
 
     public FxUI() {
         //top
         MenuBar menuBar = createMenuBar();
         this.setTop(menuBar);
 
-        //bottom
-        Label message = new Label("messages");
+        // bottom
+        message = new Label("messages");
         this.setBottom(message);
 
         //middle left
         Label controls = new Label("Controls");
-        Button pauseBtn = new Button("Pause");
-        Button resumeBtn = new Button("Resume");
+        createControlButtons();
         VBox vboxLeft = new VBox();
         vboxLeft.getChildren().addAll(controls,pauseBtn,resumeBtn);
 
@@ -67,13 +84,76 @@ public class FxUI extends BorderPane implements UI {
         this.setRight(infoPaneRight);
     }
 
+    private void onKeyPressed(KeyEvent keyEvent) {
+        // check if keyEvent matches key combination
+        if(kbPause.match((keyEvent))){
+            togglePause();
+            return;
+        }
+        //pixel board scaling
+        if(keyEvent.getCode().toString().equals("PLUS")){
+            pixelScale ++;
+            canvasPane.getChildren().clear();
+        }
+        if(keyEvent.getCode().toString().equals("MINUS")){
+            if(pixelScale-1 > 0){
+                pixelScale--;
+                canvasPane.getChildren().clear();
+            }
+        }
+        // convert key input to String and pass it to game (controller) class
+        game.receiveInput(keyEvent.getCode().toString().toLowerCase());
+    }
+
+    private void togglePause(){
+        // toggle on call (switch pause state)
+        paused = !paused;
+        // link pause buttons and menu items to pause state
+        pauseBtn.setDisable(paused);
+        resumeBtn.setDisable(!paused);
+        pauseMenuItem.setDisable(paused);
+        resumeMenuItem.setDisable(!paused);
+        // call pause input on game object
+        game.receiveInput("togglePause");
+        // display pause/resume status message
+        if(paused)
+            message.setText("Game paused");
+        else
+            message.setText("Game resumed");
+    }
+
+    private void createControlButtons(){
+        // create buttons with default visibility
+        pauseBtn = new Button("Pause");
+        resumeBtn = new Button("Resume");
+        resumeBtn.setDisable(true);
+        // link buttons to pause event
+        pauseBtn.setOnAction(e ->{
+            togglePause();
+        });
+        resumeBtn.setOnAction(e ->{
+            togglePause();
+        });
+    }
+
     private MenuBar createMenuBar() {
         Menu fileMenuItem = new Menu("File");
-        MenuItem pauseMenuItem = new MenuItem("Pause");
-        MenuItem resumeMenuItem = new MenuItem("Resume");
-        MenuItem stopMenuItem = new MenuItem("Stop");
+        pauseMenuItem = new MenuItem("Pause (Strg+P)");
+        resumeMenuItem = new MenuItem("Resume (Strg+P)");
+        resumeMenuItem.setDisable(true);
+        MenuItem stopMenuItem = new MenuItem("Stop (Alt+F4)");
 
         fileMenuItem.getItems().addAll(pauseMenuItem,resumeMenuItem,stopMenuItem);
+        // link menu items to events
+        pauseMenuItem.setOnAction(e ->{
+            togglePause();
+        });
+        resumeMenuItem.setOnAction(e ->{
+            togglePause();
+        });
+        stopMenuItem.setOnAction(e ->{
+            System.exit(0);
+        });
 
         MenuBar menuBar = new MenuBar();
         menuBar.getMenus().add(fileMenuItem);
@@ -92,7 +172,7 @@ public class FxUI extends BorderPane implements UI {
 
     private void drawBoardInPane(AEntity[][] boardArray){
         if(canvasPane.getChildren().isEmpty()){
-            canvasPane.setCenter(new Canvas(boardArray.length * SCALE, boardArray[0].length * SCALE));
+            canvasPane.setCenter(new Canvas(boardArray.length * pixelScale, boardArray[0].length * pixelScale));
         }
         Canvas canvas = (Canvas) canvasPane.getCenter();
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -103,15 +183,13 @@ public class FxUI extends BorderPane implements UI {
                 if (boardArray[x][y] != null) type = boardArray[x][y].getType();
 
                 graphicsContext.setFill(type.getColor());
-                graphicsContext.fillRect(x*SCALE,y*SCALE,SCALE,SCALE);
+                graphicsContext.fillRect(x* pixelScale,y* pixelScale, pixelScale, pixelScale);
             }
         }
     }
 
     @Override
     public void render(BoardView boardView) {
-        //TODO: spielfeld aktualisieren
-
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -119,7 +197,6 @@ public class FxUI extends BorderPane implements UI {
                 updateInfo(Pathfinding.getSquirrelArrayList());
             }
         });
-
     }
 
     @Override
@@ -135,5 +212,14 @@ public class FxUI extends BorderPane implements UI {
     @Override
     public void help() {
 
+    }
+
+    public void setGame(GameImpl game) {
+        this.game = game;
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
+        stage.getScene().setOnKeyPressed(this::onKeyPressed);
     }
 }
