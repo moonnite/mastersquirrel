@@ -105,7 +105,6 @@ public class FlattenedBoard implements EntityContext, BoardView{
                     case GOODPLANT, BADPLANT, GOODBEAST -> {
                         entity.updateEnergy(entityOnNewPos.getEnergy());
                         entityOnNewPos.updatePosition(genRandomPos());
-                        return true;
                     }
                     case BADBEAST -> {
                         entity.updateEnergy(entityOnNewPos.getEnergy());
