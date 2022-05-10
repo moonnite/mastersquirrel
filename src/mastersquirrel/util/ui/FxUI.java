@@ -44,7 +44,7 @@ public class FxUI extends BorderPane implements UI{
     private Stage stage;
 
     public FxUI() {
-        //top
+        // top
         MenuBar menuBar = createMenuBar();
         this.setTop(menuBar);
 
@@ -52,12 +52,13 @@ public class FxUI extends BorderPane implements UI{
         message = new Label("messages");
         this.setBottom(message);
 
-        //middle left
+        // middle left
         Label controls = new Label("Controls");
         createControlButtons();
         VBox vboxLeft = new VBox();
         vboxLeft.getChildren().addAll(controls,pauseBtn,resumeBtn);
 
+        // Info
         Separator separator = new Separator();
         vboxLeft.getChildren().add(new Separator());
 
@@ -72,11 +73,11 @@ public class FxUI extends BorderPane implements UI{
         vboxLeft.setSpacing(5);
         this.setLeft(vboxLeft);
 
-        //middle center
+        // middle center
         this.canvasPane = new BorderPane();
         this.setCenter(canvasPane);
 
-        //middle right
+        // middle right
         infoPaneRight = new BorderPane();
         VBox vboxRight = new VBox();
         vboxRight.setSpacing(5);

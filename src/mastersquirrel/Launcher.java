@@ -67,8 +67,8 @@ public class Launcher extends Application {
 
     public static void startGame(BoardView board) {
         //delay in seconds
-        double waitFor = 0.01;
-        //convert for 3 rounds in milliseconds
+        double waitFor = 1;
+        //convert for 3 runs in milliseconds
         waitFor = (waitFor / 3) * 1000;
 
         Timer timer = new Timer();

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 public enum EntityType {
     GOODPLANT("GoodPlant",Color.DARKGREEN),
     BADPLANT("BadPlant",Color.GREENYELLOW),
-    GOODBEAST("GoodBeast",Color.LIMEGREEN),
+    GOODBEAST("GoodBeast",Color.LIGHTSKYBLUE),
     BADBEAST("BadBeast",Color.MEDIUMVIOLETRED),
     WALL("Wall",Color.DARKGREY),
     EMPTY("Empty",Color.LIGHTGREY),
