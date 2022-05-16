@@ -1,6 +1,6 @@
 package mastersquirrel.util.ui.console;
 
-import mastersquirrel.Exeptions.ScanExeption;
+import mastersquirrel.exeptions.ScanExeption;
 
 import java.io.BufferedReader;
 import java.io.IOException;

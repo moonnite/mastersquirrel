@@ -1,7 +1,7 @@
 package mastersquirrel;
 
-import mastersquirrel.Exeptions.NotEnoughEnergyException;
-import mastersquirrel.Exeptions.ScanExeption;
+import mastersquirrel.exeptions.NotEnoughEnergyException;
+import mastersquirrel.exeptions.ScanExeption;
 import mastersquirrel.entities.HandOperatedMasterSquirrel;
 import mastersquirrel.util.ui.UI;
 import mastersquirrel.util.ui.console.Command;

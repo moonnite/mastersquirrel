@@ -1,4 +1,4 @@
-package mastersquirrel.Exeptions;
+package mastersquirrel.exeptions;
 
 public class NotEnoughEnergyException extends Exception{
         public NotEnoughEnergyException(){super();}

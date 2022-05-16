@@ -1,7 +1,7 @@
 package mastersquirrel.entities;
 
 import mastersquirrel.EntityContext;
-import mastersquirrel.Exeptions.NotEnoughEnergyException;
+import mastersquirrel.exeptions.NotEnoughEnergyException;
 import mastersquirrel.XY;
 
 public class MasterSquirrel extends Squirrel{

@@ -1,7 +1,7 @@
 package mastersquirrel;
 
-import mastersquirrel.Exeptions.ElementAlreadyExistsException;
-import mastersquirrel.Exeptions.ElementNotInListException;
+import mastersquirrel.exeptions.ElementAlreadyExistsException;
+import mastersquirrel.exeptions.ElementNotInListException;
 import mastersquirrel.entities.AEntity;
 
 import java.util.*;

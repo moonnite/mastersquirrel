@@ -1,4 +1,4 @@
-package mastersquirrel.Exeptions;
+package mastersquirrel.exeptions;
 
 public class ElementNotInListException extends RuntimeException{
     public ElementNotInListException(){super();}

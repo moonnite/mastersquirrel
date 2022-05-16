@@ -1,4 +1,4 @@
-package mastersquirrel.Exeptions;
+package mastersquirrel.exeptions;
 
 public class ScanExeption extends RuntimeException{
     public  ScanExeption(){super();}

@@ -1,6 +1,6 @@
 package mastersquirrel.util.ui.console.consoletest;
 
-import mastersquirrel.Exeptions.ScanExeption;
+import mastersquirrel.exeptions.ScanExeption;
 import mastersquirrel.util.ui.console.Command;
 import mastersquirrel.util.ui.console.CommandScanner;
 
