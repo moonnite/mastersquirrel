@@ -30,6 +30,7 @@ public class GameImpl extends Game{
             case "s" -> s();
             case "d" -> d();
             case "togglePause" -> switchPauseState();
+            case "q" -> q();
         }
     }
 
