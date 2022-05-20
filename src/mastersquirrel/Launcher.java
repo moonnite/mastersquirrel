@@ -51,13 +51,13 @@ public class Launcher extends Application {
         if (args.length != 0 && args[0].equals("-console")) {
             System.out.println("Running on console:");
             ui = new ConsoleUI();
-            game = new GameImpl(state, ui);
+            game = new GameImpl(state,ui);
             startGame(state.getBoard().flatten());
         } else {
             System.out.println("Running on GUI:");
             //run GUI view of game
             ui = new FxUI();
-            game = new GameImpl(state, ui);
+            game = new GameImpl(state,ui);
             FxUI fxUI = (FxUI)ui;
             fxUI.setGame(game);
             startGame(state.getBoard().flatten());

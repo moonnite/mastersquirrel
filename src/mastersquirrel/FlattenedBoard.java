@@ -15,8 +15,8 @@ public class FlattenedBoard implements EntityContext, BoardView{
         AEntity initRef;
         for (AEntity entity : entities) {
             initRef = entity;
-            boardArray[initRef.getPosition().getXLen()]
-                      [initRef.getPosition().getYLen()] = entity;
+            boardArray[initRef.getPosition().getX()]
+                      [initRef.getPosition().getY()] = entity;
         }
     }
 
@@ -65,13 +65,13 @@ public class FlattenedBoard implements EntityContext, BoardView{
         if(entity.getType() == EntityType.GOODBEAST){
             XY xyTemp = Pathfinding.findPath(entity.getPosition(),((GoodBeast)entity).getChaseRadius(),this);
             if(xyTemp != null){
-                XY xyInverted = new XY(-xyTemp.getXLen(),-xyTemp.getYLen());
+                XY xyInverted = new XY(-xyTemp.getX(),-xyTemp.getY());
                 //System.out.println("XYINV:  "+xyInverted);
                 newPos = XY.add(entity.getPosition(), xyInverted);
             }
         }
 
-        AEntity entityOnNewPos = boardArray[newPos.getXLen()][newPos.getYLen()];
+        AEntity entityOnNewPos = boardArray[newPos.getX()][newPos.getY()];
 
         //Move on empty + handle Collisions in checkCollisions
         if(!(checkCollisions(entity, entityOnNewPos))){
@@ -85,7 +85,7 @@ public class FlattenedBoard implements EntityContext, BoardView{
         XY movePos = XY.add(parent.getPosition(),dir);
 
         //if position where minisquirrel should be spawned is already used, generate new pos (infinite loop, when mastersquirrel is surrounded by entities)
-        for(int i = 0; i<=9 && boardArray[movePos.getXLen()][movePos.getYLen()] != null; i++){
+        for(int i = 0; i<=9 && boardArray[movePos.getX()][movePos.getY()] != null; i++){
             if(i==9) return;
             movePos = XY.add(parent.getPosition(),parent.getPosition().genNewDir());
         }

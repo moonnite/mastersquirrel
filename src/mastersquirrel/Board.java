@@ -12,12 +12,12 @@ public class Board {
 
     public Board(BoardConfig boardConfig){
         this.boardConfig = boardConfig;
-        xBoardSize = boardConfig.BOARD_SIZE.getXLen();
-        yBoardSize = boardConfig.BOARD_SIZE.getYLen();
+        xBoardSize = boardConfig.BOARD_SIZE.getX();
+        yBoardSize = boardConfig.BOARD_SIZE.getY();
         alreadyUsed = new int[xBoardSize][yBoardSize];
 
-        setBoarderWallElements(boardConfig.BOARD_SIZE.getXLen(),yBoardSize);
-        setEntities(boardConfig.BOARD_SIZE.getXLen(),yBoardSize);
+        setBoarderWallElements(boardConfig.BOARD_SIZE.getX(),yBoardSize);
+        setEntities(boardConfig.BOARD_SIZE.getX(),yBoardSize);
     }
 
     //creates a 2D Array representing a board with all entities from the entitySet

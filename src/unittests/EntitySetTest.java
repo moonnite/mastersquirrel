@@ -214,8 +214,8 @@ public class EntitySetTest {
         entitySet.nextStep(state.flattenBoard());
 
         //test for movement in given direction and collision
-        assertEquals(badBeastCustom.getPosition().getXLen(), posToCheck.getXLen());
-        assertEquals(badBeastCustom.getPosition().getYLen(), posToCheck.getYLen());
+        assertEquals(badBeastCustom.getPosition().getX(), posToCheck.getX());
+        assertEquals(badBeastCustom.getPosition().getY(), posToCheck.getY());
     }
 
     @Test

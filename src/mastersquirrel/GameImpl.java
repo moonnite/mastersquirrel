@@ -19,7 +19,7 @@ public class GameImpl extends Game{
     public GameImpl(State state, UI ui) {
         super(state);
         this.ui = ui;
-        handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1),ui);
+        handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1));
         entitySet.put(handOperatedMasterSquirrel);
     }
 
@@ -88,6 +88,15 @@ public class GameImpl extends Game{
     }
     private void d(){
         handOperatedMasterSquirrel.setInput(XY.RIGHT);
+    }
+    private void q(){
+        try{
+            handOperatedMasterSquirrel.spawnMiniSquirrel(10);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
     }
 
     private void masterenergy(){

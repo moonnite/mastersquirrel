@@ -6,6 +6,7 @@ import mastersquirrel.XY;
 public abstract class Squirrel extends Movable{
     protected Squirrel(int e, XY pos) {
         super(e, pos);
+        Pathfinding.addToSquirrelList(this);
     }
 
     public void onWallCollision(int energyDamage){

@@ -2,7 +2,6 @@ package mastersquirrel.nanaastar;
 
 import mastersquirrel.FlattenedBoard;
 import mastersquirrel.XY;
-import mastersquirrel.entities.HandOperatedMasterSquirrel;
 import mastersquirrel.entities.Squirrel;
 import java.util.ArrayList;
 
@@ -16,8 +15,8 @@ public class Pathfinding {
     public static ArrayList<Squirrel> squirrelsInRange(XY startPos, int radius){
         ArrayList<Squirrel> squirrelsInRange = new ArrayList<>();
         for (Squirrel s : squirrelArrayList) {
-            int xDif = Math.abs(startPos.getXLen()-s.getPosition().getXLen());
-            int yDif = Math.abs(startPos.getYLen()-s.getPosition().getYLen());
+            int xDif = Math.abs(startPos.getX()-s.getPosition().getX());
+            int yDif = Math.abs(startPos.getY()-s.getPosition().getY());
             //check if differences within radius and not same pos as startPos (squirrel shouldn't find itself)
             if (xDif <= radius && yDif <= radius && (xDif + yDif != 0)){
                 squirrelsInRange.add(s);
@@ -61,7 +60,7 @@ public class Pathfinding {
             if(nextPos != null) {
                 //System.out.println(nextPos);
                 //System.out.println(startPos);
-                return new XY(nextPos.getXLen() - startPos.getXLen(), nextPos.getYLen() - startPos.getYLen());
+                return new XY(nextPos.getX() - startPos.getX(), nextPos.getY() - startPos.getY());
             }
         }
         return null;

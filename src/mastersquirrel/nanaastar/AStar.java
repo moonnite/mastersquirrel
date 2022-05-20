@@ -22,7 +22,7 @@ public class AStar {
     private XY endPos;
 
     public void run(FlattenedBoard flattenedBoard, XY startPos, XY endPos){
-        grid = new Cell[flattenedBoard.getSize().getXLen()][flattenedBoard.getSize().getYLen()];
+        grid = new Cell[flattenedBoard.getSize().getX()][flattenedBoard.getSize().getY()];
 
         //init cell grid
         for(int i = 0; i < grid.length; i++){
@@ -35,15 +35,15 @@ public class AStar {
         PriorityQueue<Cell> openCells = new PriorityQueue<Cell>(Comparator.comparingInt((Cell c) -> c.fCost));
 
         //add starting Cell (to start the algorithm's while loop)
-        grid[startPos.getXLen()][startPos.getYLen()].gCost = 0;
-        grid[startPos.getXLen()][startPos.getYLen()].fCost = h(startPos,endPos);
+        grid[startPos.getX()][startPos.getY()].gCost = 0;
+        grid[startPos.getX()][startPos.getY()].fCost = h(startPos,endPos);
 
-        openCells.add(grid[startPos.getXLen()][startPos.getYLen()]);
+        openCells.add(grid[startPos.getX()][startPos.getY()]);
 
         while(!openCells.isEmpty()){
             Cell current = openCells.remove();
 
-            if(current.position.getXLen() == endPos.getXLen() && current.position.getYLen() == endPos.getYLen()){
+            if(current.position.getX() == endPos.getX() && current.position.getY() == endPos.getY()){
                 setPathfindingValues(current);
                 return;
             }
@@ -51,7 +51,7 @@ public class AStar {
             for (Cell neighbor:getNeighbors(current)) {
                 int tempGCost;
                 //Diagonal cost
-                if(current.position.getXLen() != neighbor.position.getXLen() && current.position.getYLen() != neighbor.position.getYLen()){
+                if(current.position.getX() != neighbor.position.getX() && current.position.getY() != neighbor.position.getY()){
                     tempGCost = current.gCost + DIAGONAL_COST;
                 }
                 //Straight cost
@@ -84,8 +84,8 @@ public class AStar {
 
         ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
-        int currentXPos = current.position.getXLen();
-        int currentYPos = current.position.getYLen();
+        int currentXPos = current.position.getX();
+        int currentYPos = current.position.getY();
 
         //From Left-Up clockwise all neighbors
         if(grid[currentXPos-1][currentYPos-1].walkable) neighbors.add(grid[currentXPos-1][currentYPos-1]);
@@ -114,8 +114,8 @@ public class AStar {
     }
 
     public int h(XY startPos, XY endPos){
-        int xDif = Math.abs(startPos.getXLen()-endPos.getXLen());
-        int yDif = Math.abs(startPos.getYLen()-endPos.getYLen());
+        int xDif = Math.abs(startPos.getX()-endPos.getX());
+        int yDif = Math.abs(startPos.getY()-endPos.getY());
 
         //return largest difference
         return Math.max(xDif, yDif);
@@ -141,7 +141,7 @@ public class AStar {
 
         @Override
         public String toString() {
-            return "[" + position.getXLen() + ", " + position.getYLen() + "]";
+            return "[" + position.getX() + ", " + position.getY() + "]";
         }
     }
 }
