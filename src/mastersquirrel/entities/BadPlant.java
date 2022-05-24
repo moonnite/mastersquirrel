@@ -11,11 +11,13 @@ public class BadPlant extends NoneMovable{
 
     @Override
     public void nextStep(EntityContext entityContext) {
+        if(energy >= 0) entityContext.killAndRespawn(this);
         //does not move
     }
 
     @Override
     public void updateEnergy(int energyDelta) {
-
+        energy += energyDelta;
     }
+
 }

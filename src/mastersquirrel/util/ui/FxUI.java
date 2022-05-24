@@ -1,6 +1,7 @@
 package mastersquirrel.util.ui;
 
 import javafx.application.Platform;
+import javafx.embed.swt.SWTFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -21,6 +22,7 @@ import mastersquirrel.nanaastar.Pathfinding;
 import mastersquirrel.util.ui.console.Command;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class FxUI extends BorderPane implements UI{
 
@@ -165,7 +167,10 @@ public class FxUI extends BorderPane implements UI{
         VBox vBox = (VBox) infoPaneRight.getCenter();
         vBox.getChildren().clear();
 
-        for(Squirrel s : squirrelArrayList){
+        ArrayList<Squirrel> copySquirrelArray = new ArrayList<Squirrel>(squirrelArrayList);
+
+        for(Squirrel s : copySquirrelArray){
+            if(s == null) continue;
             Label label = new Label(s.getType()+": "+s.getEnergy());
             vBox.getChildren().add(label);
         }

@@ -1,7 +1,9 @@
 package mastersquirrel.entities;
 
 import mastersquirrel.EntityContext;
+import mastersquirrel.EntitySet;
 import mastersquirrel.XY;
+import mastersquirrel.nanaastar.Pathfinding;
 
 public abstract class AEntity implements IEntity{
     private static int entityCount = 0;
@@ -27,6 +29,10 @@ public abstract class AEntity implements IEntity{
 
         //Handle List (Auto Subscribe to list on create)
         //EntitySet.getInstance().put(this);
+    }
+
+    public void resetEnergy(){
+        energy = startEnergy;
     }
 
     public int getID(){

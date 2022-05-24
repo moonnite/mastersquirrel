@@ -10,7 +10,7 @@ public enum EntityType {
     WALL("Wall",Color.DARKGREY),
     EMPTY("Empty",Color.LIGHTGREY),
     MINISQUIRREL("MiniSquirrel",Color.HOTPINK),
-    MASTERSQUIRREL("MasterSquirrel",Color.VIOLET),
+    MASTERSQUIRREL("MasterSquirrel",Color.ORANGERED),
     HANDOPERATEDMASTERSQUIRREL("HandOperatedMasterSquirrel",Color.BLUEVIOLET);
 
     private final String type;

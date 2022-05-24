@@ -1,7 +1,6 @@
 package mastersquirrel.entities;
 
 import mastersquirrel.*;
-import mastersquirrel.entities.bots.MasterSquirrelBot;
 import mastersquirrel.entities.bots.MiniSquirrelBot;
 import mastersquirrel.entities.bots.botapi.BotController;
 import mastersquirrel.entities.bots.botapi.BotControllerFactory;
@@ -113,6 +112,17 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
         @Override
         public int getEnergy() {
             return handOperatedMasterSquirrel.getEnergy();
+        }
+
+        @Override
+        public void implode() {
+            // not supported
+        }
+
+        @Override
+        public XY getMasterDir() {
+            // not supported
+            return null;
         }
     }
 }

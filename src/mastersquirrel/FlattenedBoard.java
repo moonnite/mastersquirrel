@@ -93,6 +93,12 @@ public class FlattenedBoard implements EntityContext, BoardView{
         EntitySet.getInstance().put(ms);
     }
 
+    @Override
+    public void killAndRespawn(AEntity e) {
+        e.updatePosition(genRandomPos());
+        e.resetEnergy();
+    }
+
     public boolean checkCollisions(AEntity entity, AEntity entityOnNewPos){
         if(entityOnNewPos == null) return false;
         switch (entity.getType()){
@@ -100,6 +106,9 @@ public class FlattenedBoard implements EntityContext, BoardView{
                 switch(entityOnNewPos.getType()){
                     case WALL -> {
                         ((HandOperatedMasterSquirrel)entity).onWallCollision(entityOnNewPos.getEnergy());
+                        return true;
+                    }
+                    case MASTERSQUIRREL -> {
                         return true;
                     }
                     case GOODPLANT, BADPLANT, GOODBEAST -> {
@@ -129,6 +138,9 @@ public class FlattenedBoard implements EntityContext, BoardView{
                 switch(entityOnNewPos.getType()){
                     case WALL -> {
                         ((MasterSquirrel)entity).onWallCollision(entityOnNewPos.getEnergy());
+                        return true;
+                    }
+                    case HANDOPERATEDMASTERSQUIRREL -> {
                         return true;
                     }
                     case GOODPLANT, BADPLANT, GOODBEAST -> {

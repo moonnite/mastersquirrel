@@ -5,6 +5,8 @@ import mastersquirrel.EntitySet;
 import mastersquirrel.nanaastar.Pathfinding;
 import mastersquirrel.XY;
 
+import java.util.Iterator;
+
 public class MiniSquirrel extends Squirrel{
 
     private final AEntity parent;

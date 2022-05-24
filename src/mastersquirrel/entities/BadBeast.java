@@ -16,13 +16,14 @@ public class BadBeast extends Movable{
 
     @Override
     public void nextStep(EntityContext entityContext) {
+        if(energy >= 0) entityContext.killAndRespawn(this);
+        // idle cooldown
         if(cooldown > 0){
             cooldown--;
             return;
         }
         cooldown = MAX_COOLDOWN;
-        //Pathfinding XY -> entweder XY direction oder null, wenn kein weg in unter 6 moves
-        //entityContext.move(this,PATHFINDING DIRECTION);
+
         super.nextStep(entityContext);
     }
 
@@ -38,7 +39,7 @@ public class BadBeast extends Movable{
 
     @Override
     public void updateEnergy(int energyDelta) {
-
+        energy += energyDelta;
     }
 
     public int getMaxBites() {

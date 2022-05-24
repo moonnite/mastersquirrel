@@ -14,6 +14,8 @@ public class GoodBeast extends Movable{
 
     @Override
     public void nextStep(EntityContext entityContext) {
+        if(energy <= 0) entityContext.killAndRespawn(this);
+
         if(cooldown > 0){
             cooldown--;
             return;
@@ -24,8 +26,9 @@ public class GoodBeast extends Movable{
 
     @Override
     public void updateEnergy(int energyDelta) {
-
+        energy += energyDelta;
     }
+
 
     public int getChaseRadius() {
         return CHASE_RADIUS;

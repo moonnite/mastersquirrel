@@ -1,5 +1,7 @@
 package mastersquirrel;
 
+import mastersquirrel.entities.bots.MasterSquirrelBot;
+import mastersquirrel.entities.bots.MiniSquirrelBot;
 import mastersquirrel.exeptions.NotEnoughEnergyException;
 import mastersquirrel.exeptions.ScanExeption;
 import mastersquirrel.entities.HandOperatedMasterSquirrel;
@@ -13,6 +15,8 @@ import java.util.Arrays;
 public class GameImpl extends Game{
 
     HandOperatedMasterSquirrel handOperatedMasterSquirrel;
+    MasterSquirrelBot masterSquirrelBot;
+    MiniSquirrelBot miniSquirrelBot;
     EntitySet entitySet = EntitySet.getInstance();
     UI ui;
 
@@ -21,6 +25,10 @@ public class GameImpl extends Game{
         this.ui = ui;
         handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1));
         entitySet.put(handOperatedMasterSquirrel);
+        masterSquirrelBot = new MasterSquirrelBot(new XY(4,4));
+        entitySet.put(masterSquirrelBot);
+        MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(1000, new XY(12,5), handOperatedMasterSquirrel);
+        EntitySet.getInstance().put(miniSquirrelBot);
     }
 
     public void receiveInput(String keyEvent){

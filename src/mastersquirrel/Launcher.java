@@ -37,11 +37,11 @@ public class Launcher extends Application {
 
         BoardConfig boardConfig = new BoardConfig(
                 new XY(50, 50),
-                36,
-                10,
-                10,
-                10,
-                10,
+                2,
+                0,
+                0,
+                2200,
+                0,
                 0,
                 0);
 
