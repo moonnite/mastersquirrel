@@ -18,7 +18,7 @@ public class GameImpl extends Game{
     MasterSquirrelBot masterSquirrelBot;
     MiniSquirrelBot miniSquirrelBot;
     EntitySet entitySet = EntitySet.getInstance();
-    UI ui;
+    private UI ui;
 
     public GameImpl(State state, UI ui) {
         super(state);
