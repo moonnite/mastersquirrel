@@ -15,7 +15,7 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
     public HandOperatedMasterSquirrel(XY pos) {
         super(pos);
         type = EntityType.HANDOPERATEDMASTERSQUIRREL;
-        BotControllerFactory botControllerFactory = new BotControllerFactory(){};
+        BotControllerFactory botControllerFactory = new HandOperatedFactory();
         handOperatedMasterSquirrelController = new BotController() {
             @Override
             public void nextStep(ControllerContext controllerContext) {

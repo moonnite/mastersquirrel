@@ -15,7 +15,7 @@ public class MiniSquirrelBot extends MiniSquirrel{
     private final int viewRadius = 10;
     private int impactRadius = 5;
 
-    public MiniSquirrelBot(int energy, XY pos, AEntity parent) {
+    public MiniSquirrelBot(int energy, XY pos, AEntity parent, BotControllerFactory botControllerFactory) {
         super(energy, pos, parent);
         type = EntityType.MINISQUIRREL;
 

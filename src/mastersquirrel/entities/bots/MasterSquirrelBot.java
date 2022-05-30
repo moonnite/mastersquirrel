@@ -116,8 +116,8 @@ public class MasterSquirrelBot extends MasterSquirrel{
             XY movePos = XY.add(masterSquirrelBot.getPosition(), direction);
 
             //if position where minisquirrel should be spawned is already used, generate new pos (infinite loop, when mastersquirrel is surrounded by entities)
-            for(int i = 0; i<=9 && flattenedBoard.getBoardArray()[movePos.getX()][movePos.getY()] != null; i++){
-                if(i==9) return;
+            for(int i = 0; i<=90 && flattenedBoard.getBoardArray()[movePos.getX()][movePos.getY()] != null; i++){
+                if(i==90) return;
                 movePos = XY.add(masterSquirrelBot.getPosition(),masterSquirrelBot.getPosition().genNewDir());
             }
 
