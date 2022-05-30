@@ -2,9 +2,7 @@ package mastersquirrel.entities;
 
 import mastersquirrel.*;
 import mastersquirrel.entities.bots.MiniSquirrelBot;
-import mastersquirrel.entities.bots.botapi.BotController;
-import mastersquirrel.entities.bots.botapi.BotControllerFactory;
-import mastersquirrel.entities.bots.botapi.ControllerContext;
+import mastersquirrel.entities.bots.botapi.*;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel{
 
@@ -86,8 +84,18 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
         }
 
         @Override
+        public XY locate() {
+            return handOperatedMasterSquirrel.getPosition();
+        }
+
+        @Override
         public EntityType getEntityAt(XY xy) {
             return flattenedBoard.getBoardArray()[xy.getX()][xy.getY()].getType();
+        }
+
+        @Override
+        public boolean isMine(XY xy) throws OutOfViewException {
+            return false;
         }
 
         @Override
@@ -115,14 +123,19 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
         }
 
         @Override
-        public void implode() {
+        public void implode(int impactRadius) {
             // not supported
         }
 
         @Override
-        public XY getMasterDir() {
+        public XY directionOfMaster() {
             // not supported
             return null;
+        }
+
+        @Override
+        public long getRemainingSteps() {
+            return 0;
         }
     }
 }

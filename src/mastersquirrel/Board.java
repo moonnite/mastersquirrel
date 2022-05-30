@@ -2,6 +2,8 @@ package mastersquirrel;
 
 import mastersquirrel.entities.*;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class Board {
     private final BoardConfig boardConfig;
     private final int xBoardSize;
@@ -41,6 +43,19 @@ public class Board {
     private void setEntities(int xLen, int yLen) {
 
         AEntity initRef;
+
+        if(boardConfig.botMode){
+            for (String s:boardConfig.bots) {
+                System.out.println(s);
+                try {
+                    initRef = (AEntity) Class.forName("mastersquirrel.botimpls21."+s).getConstructor().newInstance();
+                    entitySet.put(initRef);
+                } catch (InstantiationException | IllegalAccessException
+                        | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         for (int i = 0; i < boardConfig.WALL_COUNT; i++) {
             XY randomPos = getRandomPos();

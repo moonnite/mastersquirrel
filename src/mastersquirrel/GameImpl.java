@@ -131,6 +131,10 @@ public class GameImpl extends Game{
 
     @Override
     protected void update() {
+        if(State.getBotState() && State.decrementRemainingSteps()){
+            switchPauseState();
+            System.out.println("lol");
+        }
         entitySet.nextStep(state.flattenBoard());
     }
 
@@ -138,4 +142,5 @@ public class GameImpl extends Game{
     public void render(BoardView boardView) {
         ui.render(state.flattenBoard());
     }
+
 }

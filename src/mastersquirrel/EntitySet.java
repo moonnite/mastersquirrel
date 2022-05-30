@@ -122,11 +122,9 @@ public class EntitySet {
 
     public void nextStep(EntityContext entityContext){
         Enumeration e = enumerateRandom();
-        int count = 0;
         while(e.hasMoreElements()){
             AEntity a = (AEntity)e.nextElement();
             //System.out.println(a.getID());
-            count++;
             a.nextStep(entityContext);
         }
         //System.out.println("Updated "+count+" entities.");

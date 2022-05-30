@@ -6,9 +6,7 @@ import mastersquirrel.XY;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
 import mastersquirrel.entities.MiniSquirrel;
-import mastersquirrel.entities.bots.botapi.BotController;
-import mastersquirrel.entities.bots.botapi.BotControllerFactory;
-import mastersquirrel.entities.bots.botapi.ControllerContext;
+import mastersquirrel.entities.bots.botapi.*;
 
 public class MiniSquirrelBot extends MiniSquirrel{
 
@@ -21,7 +19,7 @@ public class MiniSquirrelBot extends MiniSquirrel{
         super(energy, pos, parent);
         type = EntityType.MINISQUIRREL;
 
-        BotControllerFactory botControllerFactory = new BotControllerFactory(){};
+        //TODO: Asam === botControllerFactoryImpl
         miniBotController = botControllerFactory.createMiniBotController();
     }
 
@@ -45,7 +43,7 @@ public class MiniSquirrelBot extends MiniSquirrel{
             this.miniSquirrelBot = miniSquirrelBot;
         }
 
-        public void implode(){
+        public void implode(int impactRadius){
 
             double impactArea = miniSquirrelBot.impactRadius * miniSquirrelBot.impactRadius * Math.PI;
 
@@ -65,7 +63,7 @@ public class MiniSquirrelBot extends MiniSquirrel{
                     int diffY = Math.abs(e.getPosition().getY() - miniSquirrelBot.getPosition().getY());
                     int distance = Math.max(diffX,diffY);
                     // calculate damage based on distance
-                    int energyLoss = (int)(200*(getEnergy()/impactArea) * (1 - distance/miniSquirrelBot.impactRadius));
+                    int energyLoss = (int)(200*(getEnergy()/impactArea) * (1 - distance/impactRadius));
 
                     System.out.println(energyLoss);
                     // implode
@@ -86,7 +84,7 @@ public class MiniSquirrelBot extends MiniSquirrel{
         }
 
         @Override
-        public XY getMasterDir(){
+        public XY directionOfMaster(){
             XY parentPos = miniSquirrelBot.getParent().getPosition();
             XY miniPos = miniSquirrelBot.getPosition();
 
@@ -94,6 +92,11 @@ public class MiniSquirrelBot extends MiniSquirrel{
             int y = (parentPos.getY() > miniPos.getY()) ? 1 : 0;
 
             return new XY(x,y);
+        }
+
+        @Override
+        public long getRemainingSteps() {
+            return 0;
         }
 
         public AEntity[][] getView(){
@@ -134,12 +137,34 @@ public class MiniSquirrelBot extends MiniSquirrel{
         }
 
         @Override
+        public XY locate() {
+            return miniSquirrelBot.getPosition();
+        }
+
+        @Override
         public EntityType getEntityAt(XY xy) {
+            if (xy.getX()<getViewLowerLeft().getX()
+                    || xy.getX()>getViewUpperRight().getX()
+                    || xy.getY()>getViewLowerLeft().getY()
+                    || xy.getY()<getViewUpperRight().getY()){
+                throw new OutOfViewException();
+            }
             return flattenedBoard.getBoardArray()[xy.getX()][xy.getY()].getType();
         }
 
         @Override
+        public boolean isMine(XY xy) throws OutOfViewException {
+            if(getEntityAt(xy) == EntityType.MASTERSQUIRREL){
+                return flattenedBoard.getBoardArray()[xy.getX()][xy.getY()] == miniSquirrelBot.getParent();
+            }
+            return false;
+        }
+
+        @Override
         public void move(XY direction) {
+            if(direction == XY.ZERO_ZERO || Math.abs(direction.getX()) > 1 || Math.abs(direction.getY())>1){
+                return;
+            }
             flattenedBoard.move(miniSquirrelBot, direction);
         }
 

@@ -47,6 +47,9 @@ public class Launcher extends Application {
 
         Board board = new Board(boardConfig);
         State state = new State(board);
+        State.setRemainingSteps(boardConfig.botSteps);
+        State.setBotState(boardConfig.botMode);
+
 
         if (args.length != 0 && args[0].equals("-console")) {
             System.out.println("Running on console:");

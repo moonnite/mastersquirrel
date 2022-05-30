@@ -4,9 +4,8 @@ import mastersquirrel.*;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
 import mastersquirrel.entities.MasterSquirrel;
-import mastersquirrel.entities.bots.botapi.BotController;
-import mastersquirrel.entities.bots.botapi.BotControllerFactory;
-import mastersquirrel.entities.bots.botapi.ControllerContext;
+import mastersquirrel.entities.MiniSquirrel;
+import mastersquirrel.entities.bots.botapi.*;
 
 public class MasterSquirrelBot extends MasterSquirrel{
 
@@ -17,7 +16,7 @@ public class MasterSquirrelBot extends MasterSquirrel{
         super(pos);
         type = EntityType.MASTERSQUIRREL;
 
-        BotControllerFactory botControllerFactory = new BotControllerFactory(){};
+        BotControllerFactory botControllerFactory = new BotControllerFactoryImpl(){};
         masterBotController = botControllerFactory.createMasterBotController();
     }
 
@@ -74,17 +73,46 @@ public class MasterSquirrelBot extends MasterSquirrel{
         }
 
         @Override
+        public XY locate() {
+            return masterSquirrelBot.getPosition();
+        }
+
+        @Override
         public EntityType getEntityAt(XY xy) {
+            if (xy.getX()<getViewLowerLeft().getX()
+                    || xy.getX()>getViewUpperRight().getX()
+                    || xy.getY()>getViewLowerLeft().getY()
+                    || xy.getY()<getViewUpperRight().getY()){
+                throw new OutOfViewException();
+            }
             return flattenedBoard.getBoardArray()[xy.getX()][xy.getY()].getType();
         }
 
         @Override
+        public boolean isMine(XY xy) {
+            if(getEntityAt(xy) == EntityType.MINISQUIRREL){
+                return ((MiniSquirrel) flattenedBoard.getBoardArray()[xy.getX()][xy.getY()]).getParent() == masterSquirrelBot;
+            }
+            return false;
+        }
+
+        @Override
         public void move(XY direction) {
+            if(direction == XY.ZERO_ZERO || Math.abs(direction.getX()) > 1 || Math.abs(direction.getY()) > 1){
+                return;
+            }
             flattenedBoard.move(masterSquirrelBot, direction);
         }
 
         @Override
         public void spawnMiniBot(XY direction, int energy) {
+            if (direction.getX()<getViewLowerLeft().getX()
+                    || direction.getX()>getViewUpperRight().getX()
+                    || direction.getY()>getViewLowerLeft().getY()
+                    || direction.getY()<getViewUpperRight().getY()){
+                throw new OutOfViewException();
+            }
+
             XY movePos = XY.add(masterSquirrelBot.getPosition(), direction);
 
             //if position where minisquirrel should be spawned is already used, generate new pos (infinite loop, when mastersquirrel is surrounded by entities)
@@ -103,14 +131,19 @@ public class MasterSquirrelBot extends MasterSquirrel{
         }
 
         @Override
-        public void implode() {
+        public void implode(int impactRadius) {
             // not supported
         }
 
         @Override
-        public XY getMasterDir() {
+        public XY directionOfMaster() {
             // not supported
             return null;
+        }
+
+        @Override
+        public long getRemainingSteps() {
+            return State.getRemainingSteps();
         }
     }
 }
