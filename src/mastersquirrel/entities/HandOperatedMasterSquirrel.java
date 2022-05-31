@@ -9,13 +9,14 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
     private XY dir;
     private boolean inputUpdated = false;
     private final int viewRadius = 100;
+    private final BotControllerFactory bot;
 
     private final BotController handOperatedMasterSquirrelController;
 
     public HandOperatedMasterSquirrel(XY pos) {
         super(pos);
         type = EntityType.HANDOPERATEDMASTERSQUIRREL;
-        BotControllerFactory botControllerFactory = new HandOperatedFactory();
+        bot = new HandOperatedFactory();
         handOperatedMasterSquirrelController = new BotController() {
             @Override
             public void nextStep(ControllerContext controllerContext) {
@@ -113,7 +114,7 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel{
                 movePos = XY.add(handOperatedMasterSquirrel.getPosition(),handOperatedMasterSquirrel.getPosition().genNewDir());
             }
 
-            MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(energy, movePos, handOperatedMasterSquirrel);
+            MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(energy, movePos, handOperatedMasterSquirrel, handOperatedMasterSquirrel.bot);
             EntitySet.getInstance().put(miniSquirrelBot);
         }
 

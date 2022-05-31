@@ -2,6 +2,7 @@ package mastersquirrel;
 
 import mastersquirrel.entities.bots.MasterSquirrelBot;
 import mastersquirrel.entities.bots.MiniSquirrelBot;
+import mastersquirrel.entities.bots.botapi.HandOperatedFactory;
 import mastersquirrel.exeptions.NotEnoughEnergyException;
 import mastersquirrel.exeptions.ScanExeption;
 import mastersquirrel.entities.HandOperatedMasterSquirrel;
@@ -25,9 +26,9 @@ public class GameImpl extends Game{
         this.ui = ui;
         handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1));
         entitySet.put(handOperatedMasterSquirrel);
-        masterSquirrelBot = new MasterSquirrelBot(new XY(4,4));
-        entitySet.put(masterSquirrelBot);
-        MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(1000, new XY(12,5), handOperatedMasterSquirrel);
+
+
+        MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(1000, new XY(12,5), handOperatedMasterSquirrel, new HandOperatedFactory());
         EntitySet.getInstance().put(miniSquirrelBot);
     }
 

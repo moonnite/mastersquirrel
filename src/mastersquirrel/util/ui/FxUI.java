@@ -1,7 +1,6 @@
 package mastersquirrel.util.ui;
 
 import javafx.application.Platform;
-import javafx.embed.swt.SWTFXUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -9,15 +8,19 @@ import javafx.scene.input.*;
 import javafx.scene.layout.BorderPane;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import mastersquirrel.BoardView;
 import mastersquirrel.Game;
 import mastersquirrel.GameImpl;
+import mastersquirrel.RandomDirection;
 import mastersquirrel.entities.AEntity;
 import mastersquirrel.entities.EntityType;
 import mastersquirrel.entities.Squirrel;
+import mastersquirrel.entities.bots.MasterSquirrelBot;
+import mastersquirrel.entities.bots.MiniSquirrelBot;
 import mastersquirrel.nanaastar.Pathfinding;
 import mastersquirrel.util.ui.console.Command;
 
@@ -46,6 +49,9 @@ public class FxUI extends BorderPane implements UI{
     private Stage stage;
 
     public FxUI() {
+
+        botMap = new HashMap<Integer,Color>();
+
         // top
         MenuBar menuBar = createMenuBar();
         this.setTop(menuBar);
@@ -57,7 +63,7 @@ public class FxUI extends BorderPane implements UI{
         // middle left
         Label controls = new Label("Controls");
         createControlButtons();
-        VBox vboxLeft = new VBox();
+        vboxLeft = new VBox();
         vboxLeft.getChildren().addAll(controls,pauseBtn,resumeBtn);
 
         // Info
@@ -163,6 +169,15 @@ public class FxUI extends BorderPane implements UI{
         return menuBar;
     }
 
+    private void addToLegend(String s, Color color){
+        //⬤
+        Text text = new Text("⬤");
+        text.setFill(color);
+        TextFlow tempTextFlow = new TextFlow();
+        tempTextFlow.getChildren().addAll(text,new Text(" "+s));
+        vboxLeft.getChildren().add(tempTextFlow);
+    }
+
     private void updateInfo(ArrayList<Squirrel> squirrelArrayList){
         VBox vBox = (VBox) infoPaneRight.getCenter();
         vBox.getChildren().clear();
@@ -171,6 +186,14 @@ public class FxUI extends BorderPane implements UI{
 
         for(Squirrel s : copySquirrelArray){
             if(s == null) continue;
+            try{
+                MasterSquirrelBot bot = (MasterSquirrelBot)s;
+                Label label = new Label(bot.getName()+": "+s.getEnergy());
+                vBox.getChildren().add(label);
+                continue;
+            }catch (Exception e){
+
+            }
             Label label = new Label(s.getType()+": "+s.getEnergy());
             vBox.getChildren().add(label);
         }

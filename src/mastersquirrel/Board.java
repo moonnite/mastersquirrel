@@ -1,6 +1,8 @@
 package mastersquirrel;
 
 import mastersquirrel.entities.*;
+import mastersquirrel.entities.bots.MasterSquirrelBot;
+import mastersquirrel.entities.bots.botapi.BotControllerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -46,10 +48,9 @@ public class Board {
 
         if(boardConfig.botMode){
             for (String s:boardConfig.bots) {
-                System.out.println(s);
                 try {
-                    initRef = (AEntity) Class.forName("mastersquirrel.botimpls21."+s).getConstructor().newInstance();
-                    entitySet.put(initRef);
+                    BotControllerFactory botFactory = (BotControllerFactory) Class.forName("mastersquirrel.botimpls21."+s).getConstructor().newInstance();
+                    entitySet.put(new MasterSquirrelBot(getRandomPos(), botFactory));
                 } catch (InstantiationException | IllegalAccessException
                         | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
                     e.printStackTrace();

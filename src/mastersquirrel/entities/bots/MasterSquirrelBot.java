@@ -12,7 +12,7 @@ public class MasterSquirrelBot extends MasterSquirrel{
     private final BotController masterBotController;
     private final int viewRadius = 4;
 
-    public MasterSquirrelBot(XY pos) {
+    public MasterSquirrelBot(XY pos, BotControllerFactory bot) {
         super(pos);
         type = EntityType.MASTERSQUIRREL;
 
@@ -106,11 +106,12 @@ public class MasterSquirrelBot extends MasterSquirrel{
 
         @Override
         public void spawnMiniBot(XY direction, int energy) {
-            if (direction.getX()<getViewLowerLeft().getX()
-                    || direction.getX()>getViewUpperRight().getX()
-                    || direction.getY()>getViewLowerLeft().getY()
-                    || direction.getY()<getViewUpperRight().getY()){
-                throw new OutOfViewException();
+
+            if(energy < 100) throw new SpawnException();
+
+            if(energy > masterSquirrelBot.getEnergy()){
+                System.out.println("Not enough energy.");
+                return;
             }
 
             XY movePos = XY.add(masterSquirrelBot.getPosition(), direction);
@@ -121,7 +122,8 @@ public class MasterSquirrelBot extends MasterSquirrel{
                 movePos = XY.add(masterSquirrelBot.getPosition(),masterSquirrelBot.getPosition().genNewDir());
             }
 
-            MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(energy, movePos, masterSquirrelBot);
+            masterSquirrelBot.updateEnergy(-energy);
+            MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(energy, movePos, masterSquirrelBot, masterSquirrelBot.getBot());
             EntitySet.getInstance().put(miniSquirrelBot);
         }
 

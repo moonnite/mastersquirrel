@@ -52,7 +52,7 @@ public abstract class AEntity implements IEntity{
     }
 
     public void updateEnergy(int energyDelta){
-
+        energy += energyDelta;
     }
 
     public int compareTo(Object o)

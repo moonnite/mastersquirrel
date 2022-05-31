@@ -65,7 +65,6 @@ public class MiniSquirrelBot extends MiniSquirrel{
                     // calculate damage based on distance
                     int energyLoss = (int)(200*(getEnergy()/impactArea) * (1 - distance/impactRadius));
 
-                    System.out.println(energyLoss);
                     // implode
                     switch (e.getType()){
                         case MASTERSQUIRREL, MINISQUIRREL, GOODBEAST, GOODPLANT -> {

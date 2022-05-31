@@ -35,7 +35,7 @@ public class BoardConfig {
         this.MINI_SQUIRREL_COUNT = MINI_SQUIRREL_COUNT;
         this.MASTER_SQUIRREL_COUNT = MASTER_SQUIRREL_COUNT;
 
-        bots.add("Terminator");
+        //bots.add("Terminator");
         bots.add("Namne");
         bots.add("Asam");
     }
