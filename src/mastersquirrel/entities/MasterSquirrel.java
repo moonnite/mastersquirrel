@@ -11,7 +11,7 @@ public class MasterSquirrel extends Squirrel{
     protected XY newMiniSquirrelDirection;
 
     public MasterSquirrel(XY pos){
-        super(5000,pos);
+        super(200,pos);
         type = EntityType.MASTERSQUIRREL;
     }
 

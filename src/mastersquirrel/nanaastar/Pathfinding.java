@@ -85,4 +85,8 @@ public class Pathfinding {
     public static ArrayList<Squirrel> getSquirrelArrayList() {
         return squirrelArrayList;
     }
+
+    public static void clearSquirrelList() {
+        squirrelArrayList.clear();
+    }
 }

@@ -24,12 +24,10 @@ public class GameImpl extends Game{
     public GameImpl(State state, UI ui) {
         super(state);
         this.ui = ui;
-        handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1));
-        entitySet.put(handOperatedMasterSquirrel);
-
-
-        MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(1000, new XY(12,5), handOperatedMasterSquirrel, new HandOperatedFactory());
-        EntitySet.getInstance().put(miniSquirrelBot);
+        //handOperatedMasterSquirrel = new HandOperatedMasterSquirrel(new XY(9,1));
+        //entitySet.put(handOperatedMasterSquirrel);
+        //MiniSquirrelBot miniSquirrelBot = new MiniSquirrelBot(1000, new XY(12,5), handOperatedMasterSquirrel, new HandOperatedFactory());
+        //EntitySet.getInstance().put(miniSquirrelBot);
     }
 
     public void receiveInput(String keyEvent){

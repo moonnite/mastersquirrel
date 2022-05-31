@@ -3,6 +3,7 @@ package mastersquirrel;
 import mastersquirrel.entities.*;
 import mastersquirrel.entities.bots.MasterSquirrelBot;
 import mastersquirrel.entities.bots.botapi.BotControllerFactory;
+import mastersquirrel.nanaastar.Pathfinding;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

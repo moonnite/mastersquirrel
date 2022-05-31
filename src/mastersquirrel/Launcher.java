@@ -36,12 +36,12 @@ public class Launcher extends Application {
     public static void main(String[] args) {
 
         BoardConfig boardConfig = new BoardConfig(
-                new XY(40, 40),
-                2,
-                10,
-                10,
-                10,
-                10,
+                new XY(60, 60),
+                0,
+                0,
+                0,
+                3000,
+                0,
                 0,
                 0);
 

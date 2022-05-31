@@ -120,7 +120,7 @@ public class FxUI extends BorderPane implements UI{
         game.receiveInput(keyEvent.getCode().toString().toLowerCase());
     }
 
-    private void togglePause(){
+    public void togglePause(){
         // toggle on call (switch pause state)
         paused = !paused;
         // link pause buttons and menu items to pause state
@@ -197,9 +197,11 @@ public class FxUI extends BorderPane implements UI{
                 Label label = new Label(bot.getName()+": "+s.getEnergy());
                 vBox.getChildren().add(label);
                 continue;
-            }catch (Exception e){
-
-            }
+            }catch (Exception e){}
+            try{
+                MiniSquirrelBot bot = (MiniSquirrelBot)s;
+                continue;
+            }catch (Exception e){}
             Label label = new Label(s.getType()+": "+s.getEnergy());
             vBox.getChildren().add(label);
         }

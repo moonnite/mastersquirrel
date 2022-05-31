@@ -56,13 +56,15 @@ public class State {
                     }
                     tempList.add(masterSquirrelBot.getEnergy());
                     Collections.sort(tempList);
-                    System.out.println("Current Scores: "+botScoreMap.toString());
+                    Collections.reverse(tempList);
+                    botScoreMap.put(masterSquirrelBot.getName(),tempList);
                 }
                 catch(Exception exception){
                     System.out.println(exception);
                 }
             }
         }
+        System.out.println("Current Scores: "+botScoreMap.toString());
         return true;
     }
 

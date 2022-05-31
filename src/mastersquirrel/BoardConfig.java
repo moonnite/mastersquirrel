@@ -14,7 +14,7 @@ public class BoardConfig {
     public final int MASTER_SQUIRREL_COUNT;
 
     public final boolean botMode = true;
-    public final long botSteps = 100;
+    public final long botSteps = 80;
 
     public final ArrayList<String> bots = new ArrayList<String>();
 
