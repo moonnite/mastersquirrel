@@ -11,18 +11,29 @@ public class MasterSquirrelBot extends MasterSquirrel{
 
     private final BotController masterBotController;
     private final int viewRadius = 4;
+    private final BotControllerFactory bot;
+    private final String name;
 
     public MasterSquirrelBot(XY pos, BotControllerFactory bot) {
         super(pos);
         type = EntityType.MASTERSQUIRREL;
 
-        BotControllerFactory botControllerFactory = new BotControllerFactoryImpl(){};
-        masterBotController = botControllerFactory.createMasterBotController();
+        this.bot = bot;
+        masterBotController = bot.createMasterBotController();
+        name = bot.getClass().getSimpleName();
     }
 
     @Override
     public void nextStep(EntityContext entityContext) {
         masterBotController.nextStep(new ControllerContextImpl(entityContext, this));
+    }
+
+    public BotControllerFactory getBot() {
+        return bot;
+    }
+
+    public String getName(){
+        return name;
     }
 
     static class ControllerContextImpl implements ControllerContext {

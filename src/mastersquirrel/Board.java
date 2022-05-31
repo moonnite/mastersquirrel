@@ -5,13 +5,14 @@ import mastersquirrel.entities.bots.MasterSquirrelBot;
 import mastersquirrel.entities.bots.botapi.BotControllerFactory;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public class Board {
     private final BoardConfig boardConfig;
     private final int xBoardSize;
     private final int yBoardSize;
     private final EntitySet entitySet = EntitySet.getInstance();
-    private final int[][] alreadyUsed;
+    private int[][] alreadyUsed;
     private final RandomDirection rD = RandomDirection.getInstance();
 
     public Board(BoardConfig boardConfig){
@@ -22,6 +23,28 @@ public class Board {
 
         setBoarderWallElements(boardConfig.BOARD_SIZE.getX(),yBoardSize);
         setEntities(boardConfig.BOARD_SIZE.getX(),yBoardSize);
+    }
+
+    public void reset(){
+        if(boardConfig.botMode) {
+            State.setRemainingSteps(0);
+            AEntity[] aEntities = EntitySet.getInstance().getAll();
+            ArrayList<MasterSquirrelBot> masterSquirrelBots = new ArrayList<MasterSquirrelBot>();
+            for (AEntity entity : aEntities) {
+                try {
+                    masterSquirrelBots.add((MasterSquirrelBot) entity);
+                } catch (Exception e) {
+
+                }
+            }
+            EntitySet.getInstance().clear();
+            alreadyUsed = new int[xBoardSize][yBoardSize];
+            setBoarderWallElements(boardConfig.BOARD_SIZE.getX(), yBoardSize);
+            for (MasterSquirrelBot m : masterSquirrelBots) {
+                entitySet.put(m);
+            }
+            setEntities(boardConfig.BOARD_SIZE.getX(), yBoardSize);
+        }
     }
 
     //creates a 2D Array representing a board with all entities from the entitySet
@@ -41,22 +64,22 @@ public class Board {
         return new XY(x,y);
     }
 
+    private void setBots(){
+        for (String s:boardConfig.bots) {
+            try {
+                BotControllerFactory botFactory = (BotControllerFactory) Class.forName("mastersquirrel.botimpls21."+s).getConstructor().newInstance();
+                entitySet.put(new MasterSquirrelBot(getRandomPos(), botFactory));
+            } catch (InstantiationException | IllegalAccessException
+                    | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     //creates and places entities
     private void setEntities(int xLen, int yLen) {
 
         AEntity initRef;
-
-        if(boardConfig.botMode){
-            for (String s:boardConfig.bots) {
-                try {
-                    BotControllerFactory botFactory = (BotControllerFactory) Class.forName("mastersquirrel.botimpls21."+s).getConstructor().newInstance();
-                    entitySet.put(new MasterSquirrelBot(getRandomPos(), botFactory));
-                } catch (InstantiationException | IllegalAccessException
-                        | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
 
         for (int i = 0; i < boardConfig.WALL_COUNT; i++) {
             XY randomPos = getRandomPos();

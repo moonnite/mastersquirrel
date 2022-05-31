@@ -15,12 +15,11 @@ public class MiniSquirrelBot extends MiniSquirrel{
     private final int viewRadius = 10;
     private int impactRadius = 5;
 
-    public MiniSquirrelBot(int energy, XY pos, AEntity parent, BotControllerFactory botControllerFactory) {
+    public MiniSquirrelBot(int energy, XY pos, AEntity parent, BotControllerFactory bot) {
         super(energy, pos, parent);
         type = EntityType.MINISQUIRREL;
 
-        //TODO: Asam === botControllerFactoryImpl
-        miniBotController = botControllerFactory.createMiniBotController();
+        miniBotController = bot.createMiniBotController();
     }
 
     @Override

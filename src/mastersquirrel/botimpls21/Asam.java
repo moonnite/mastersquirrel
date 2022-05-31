@@ -1,6 +1,12 @@
 package mastersquirrel.botimpls21;
 
-public class Asam {
+import mastersquirrel.RandomDirection;
+import mastersquirrel.XY;
+import mastersquirrel.entities.bots.botapi.BotController;
+import mastersquirrel.entities.bots.botapi.BotControllerFactory;
+import mastersquirrel.entities.bots.botapi.ControllerContext;
+
+public class Asam implements BotControllerFactory {
 
     public Asam() {
         System.out.println("Created Asam");

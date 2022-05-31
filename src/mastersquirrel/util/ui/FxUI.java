@@ -25,7 +25,8 @@ import mastersquirrel.nanaastar.Pathfinding;
 import mastersquirrel.util.ui.console.Command;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FxUI extends BorderPane implements UI{
 
@@ -47,6 +48,11 @@ public class FxUI extends BorderPane implements UI{
 
     private Game game;
     private Stage stage;
+
+    private final VBox vboxLeft;
+
+    private final RandomDirection rd = RandomDirection.getInstance();
+    private final Map<Integer, Color> botMap;
 
     public FxUI() {
 
@@ -210,9 +216,22 @@ public class FxUI extends BorderPane implements UI{
             for (int y = 0; y < boardArray[0].length; y++){
                 EntityType type = EntityType.EMPTY;
                 if (boardArray[x][y] != null) type = boardArray[x][y].getType();
-
-                graphicsContext.setFill(type.getColor());
-                graphicsContext.fillRect(x* pixelScale,y* pixelScale, pixelScale, pixelScale);
+                if(type == EntityType.MASTERSQUIRREL){
+                    if(botMap.containsKey(boardArray[x][y].getID())){
+                        graphicsContext.setFill(botMap.get(boardArray[x][y].getID()));
+                    }
+                    else{
+                        Color color = Color.rgb(rd.randomInt(0,255),rd.randomInt(0,255),rd.randomInt(0,255));
+                        graphicsContext.setFill(color);
+                        botMap.put(boardArray[x][y].getID(), color);
+                        addToLegend(((MasterSquirrelBot)boardArray[x][y]).getName(), color);
+                    }
+                    graphicsContext.fillOval(x* pixelScale,y* pixelScale, pixelScale, pixelScale);
+                }
+                else{
+                    graphicsContext.setFill(type.getColor());
+                    graphicsContext.fillRect(x* pixelScale,y* pixelScale, pixelScale, pixelScale);
+                }
             }
         }
     }
