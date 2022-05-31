@@ -20,7 +20,7 @@ public class Board {
         xBoardSize = boardConfig.BOARD_SIZE.getX();
         yBoardSize = boardConfig.BOARD_SIZE.getY();
         alreadyUsed = new int[xBoardSize][yBoardSize];
-
+        if(boardConfig.botMode) setBots();
         setBoarderWallElements(boardConfig.BOARD_SIZE.getX(),yBoardSize);
         setEntities(boardConfig.BOARD_SIZE.getX(),yBoardSize);
     }

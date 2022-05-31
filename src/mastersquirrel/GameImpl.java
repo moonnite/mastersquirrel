@@ -134,7 +134,6 @@ public class GameImpl extends Game{
     protected void update() {
         if(State.getBotState() && State.decrementRemainingSteps()){
             switchPauseState();
-            System.out.println("lol");
         }
         entitySet.nextStep(state.flattenBoard());
     }
