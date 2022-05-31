@@ -1,11 +1,14 @@
 package mastersquirrel;
 
+import javafx.application.Platform;
 import mastersquirrel.entities.bots.MasterSquirrelBot;
 import mastersquirrel.entities.bots.MiniSquirrelBot;
 import mastersquirrel.entities.bots.botapi.HandOperatedFactory;
 import mastersquirrel.exeptions.NotEnoughEnergyException;
 import mastersquirrel.exeptions.ScanExeption;
 import mastersquirrel.entities.HandOperatedMasterSquirrel;
+import mastersquirrel.nanaastar.Pathfinding;
+import mastersquirrel.util.ui.FxUI;
 import mastersquirrel.util.ui.UI;
 import mastersquirrel.util.ui.console.Command;
 import mastersquirrel.util.ui.console.GameCommandType;
@@ -131,7 +134,13 @@ public class GameImpl extends Game{
     @Override
     protected void update() {
         if(State.getBotState() && State.decrementRemainingSteps()){
-            switchPauseState();
+            state.getBoard().reset();
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    ((FxUI) ui).togglePause();
+                }
+            });
         }
         entitySet.nextStep(state.flattenBoard());
     }

@@ -79,7 +79,6 @@ public class Board {
 
     //creates and places entities
     private void setEntities(int xLen, int yLen) {
-
         AEntity initRef;
 
         for (int i = 0; i < boardConfig.WALL_COUNT; i++) {

@@ -176,7 +176,6 @@ public class FxUI extends BorderPane implements UI{
     }
 
     private void addToLegend(String s, Color color){
-        //⬤
         Text text = new Text("⬤");
         text.setFill(color);
         TextFlow tempTextFlow = new TextFlow();
