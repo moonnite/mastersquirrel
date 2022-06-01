@@ -133,6 +133,7 @@ public class GameImpl extends Game{
 
     @Override
     protected void update() {
+        entitySet.nextStep(state.flattenBoard());
         if(State.getBotState() && State.decrementRemainingSteps()){
             state.getBoard().reset();
             Platform.runLater(new Runnable() {
@@ -142,7 +143,6 @@ public class GameImpl extends Game{
                 }
             });
         }
-        entitySet.nextStep(state.flattenBoard());
     }
 
     @Override

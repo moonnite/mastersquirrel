@@ -1,5 +1,4 @@
 package mastersquirrel;
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;

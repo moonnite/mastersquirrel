@@ -28,12 +28,13 @@ public class Board {
 
     public void reset(){
         if(boardConfig.botMode) {
-            State.setRemainingSteps(0);
+            State.setRemainingSteps(boardConfig.botSteps);
             AEntity[] aEntities = EntitySet.getInstance().getAll();
             ArrayList<MasterSquirrelBot> masterSquirrelBots = new ArrayList<MasterSquirrelBot>();
             for (AEntity entity : aEntities) {
                 try {
                     masterSquirrelBots.add((MasterSquirrelBot) entity);
+                    entity.resetEnergy();
                 } catch (Exception e) {
 
                 }
@@ -41,10 +42,10 @@ public class Board {
             EntitySet.getInstance().clear();
             alreadyUsed = new int[xBoardSize][yBoardSize];
             setBoarderWallElements(boardConfig.BOARD_SIZE.getX(), yBoardSize);
+            setEntities(boardConfig.BOARD_SIZE.getX(), yBoardSize);
             for (MasterSquirrelBot m : masterSquirrelBots) {
                 entitySet.put(m);
             }
-            setEntities(boardConfig.BOARD_SIZE.getX(), yBoardSize);
         }
     }
 
