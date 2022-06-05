@@ -70,7 +70,7 @@ public class Launcher extends Application {
         State.setBotState(boardConfig.botMode);
 
         if (args.length != 0 && args[0].equals("-console")) {
-            System.out.println("Running on console:");
+            Log.log("Running on console");
             ui = new ConsoleUI();
             game = new GameImpl(state,ui);
             startGame(state.getBoard().flatten());

@@ -7,7 +7,7 @@ import mastersquirrel.entities.AEntity;
 import java.util.*;
 import java.util.stream.IntStream;
 
-public class EntitySet {
+public class EntitySet implements Collection{
     private static final EntitySet ENTITY_SET = new EntitySet();
     private EntityElement first;
     private EntityElement last;
@@ -122,9 +122,9 @@ public class EntitySet {
     }
 
     public void nextStep(EntityContext entityContext){
-        Enumeration e = enumerateRandom();
-        while(e.hasMoreElements()){
-            AEntity a = (AEntity)e.nextElement();
+        Iterator iterator = enumerateRandom();
+        while(iterator.hasNext()){
+            AEntity a = (AEntity)iterator.next();
             //System.out.println(a.getID());
             a.nextStep(entityContext);
         }
@@ -132,15 +132,17 @@ public class EntitySet {
     }
 
     //anonymous class
-    public Enumeration enumerateForward(){
-        return new Enumeration() {
+    public Iterator iterateForward(){
+        return new Iterator() {
             EntityElement current = first;
+
             @Override
-            public boolean hasMoreElements() {
+            public boolean hasNext() {
                 return (current != null);
             }
+
             @Override
-            public Object nextElement() {
+            public Object next() {
                 EntityElement temp = current;
                 current = current.getNext();
                 return temp.getData();

@@ -64,7 +64,8 @@ public class State {
                 }
             }
         }
-        System.out.println("Current Scores: "+botScoreMap.toString());
+        Log.log(botScoreMap.toString());
+        Log.log("---------------------------Round finished---------------------------");
         return true;
     }
 
