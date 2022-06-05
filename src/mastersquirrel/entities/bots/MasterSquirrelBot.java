@@ -7,6 +7,9 @@ import mastersquirrel.entities.MasterSquirrel;
 import mastersquirrel.entities.MiniSquirrel;
 import mastersquirrel.entities.bots.botapi.*;
 
+import java.lang.reflect.Proxy;
+import java.util.logging.Level;
+
 public class MasterSquirrelBot extends MasterSquirrel{
 
     private final BotController masterBotController;
@@ -25,7 +28,13 @@ public class MasterSquirrelBot extends MasterSquirrel{
 
     @Override
     public void nextStep(EntityContext entityContext) {
-        masterBotController.nextStep(new ControllerContextImpl(entityContext, this));
+        ControllerContextImpl controllerContextImpl = new ControllerContextImpl(entityContext, this);
+        ControllerContextLogHandler logHandler = new ControllerContextLogHandler(controllerContextImpl);
+        ControllerContext controllerContextProxy = (ControllerContext) Proxy.newProxyInstance(
+                ControllerContext.class.getClassLoader(),
+                new Class[] {ControllerContext.class},
+                logHandler);
+        masterBotController.nextStep(controllerContextImpl);
     }
 
     public BotControllerFactory getBot() {
@@ -121,7 +130,7 @@ public class MasterSquirrelBot extends MasterSquirrel{
             if(energy < 100) throw new SpawnException();
 
             if(energy > masterSquirrelBot.getEnergy()){
-                System.out.println("Not enough energy.");
+                Log.log(masterSquirrelBot.getName() + " has not enough energy!", Level.WARNING);
                 return;
             }
 

@@ -1,14 +1,15 @@
 package mastersquirrel.botimpls21;
 
+import mastersquirrel.Log;
 import mastersquirrel.RandomDirection;
 import mastersquirrel.XY;
 import mastersquirrel.entities.bots.botapi.BotController;
 import mastersquirrel.entities.bots.botapi.BotControllerFactory;
 import mastersquirrel.entities.bots.botapi.ControllerContext;
 
-public class Namne implements BotControllerFactory {
-    public Namne() {
-        System.out.println("Created Namne");
+public class Namn implements BotControllerFactory {
+    public Namn() {
+        Log.log("Created Namn");
     }
 
     @Override

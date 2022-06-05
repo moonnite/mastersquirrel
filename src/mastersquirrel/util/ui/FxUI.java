@@ -24,9 +24,7 @@ import mastersquirrel.entities.bots.MiniSquirrelBot;
 import mastersquirrel.nanaastar.Pathfinding;
 import mastersquirrel.util.ui.console.Command;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class FxUI extends BorderPane implements UI{
 
@@ -188,6 +186,15 @@ public class FxUI extends BorderPane implements UI{
         vBox.getChildren().clear();
 
         ArrayList<Squirrel> copySquirrelArray = new ArrayList<Squirrel>(squirrelArrayList);
+        if(!copySquirrelArray.isEmpty()) {
+            copySquirrelArray.sort(new Comparator<Squirrel>() {
+                @Override
+                public int compare(Squirrel o1, Squirrel o2) {
+                    if (o1.getEnergy() == o2.getEnergy()) return 0;
+                    return (o1.getEnergy() > o2.getEnergy()) ? -1 : 1;
+                }
+            });
+        }
 
         for(Squirrel s : copySquirrelArray){
             if(s == null) continue;

@@ -42,7 +42,7 @@ public class State {
             remainingSteps--;
             return false;
         }
-        AEntity[] aEntities = EntitySet.getInstance().getAll();
+        AEntity[] aEntities = (AEntity[])EntitySet.getInstance().toArray();
         for(AEntity e : aEntities){
             if(e.getType() == EntityType.MASTERSQUIRREL){
                 try{

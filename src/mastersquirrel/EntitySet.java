@@ -67,7 +67,7 @@ public class EntitySet {
     }
 
     //throws unchecked exception when element already in list
-    public void put (AEntity e){
+    public boolean put (AEntity e){
         if(get(e.getID()) != null){
             throw new ElementAlreadyExistsException("Element already in List");
         }
@@ -77,12 +77,13 @@ public class EntitySet {
         if(first == null) {
             first = current;
             last = first;
-            return;
+            return false;
         }
 
         last.setNext(current);
         current.setPrev(last);
         last = current;
+        return true;
     }
 
     public int length(){
@@ -148,53 +149,57 @@ public class EntitySet {
     }
 
     //local class
-    public Enumeration enumerateBackward(){
-        class Enumeration implements java.util.Enumeration {
+    public Iterator enumerateBackward(){
+        class Iteration implements java.util.Iterator {
             EntityElement current = last;
+
             @Override
-            public boolean hasMoreElements() {
+            public boolean hasNext() {
                 return (current!=null);
+
             }
+
             @Override
-            public Object nextElement() {
+            public Object next() {
                 EntityElement temp = current;
                 current = current.getPrev();
                 return temp.getData();
             }
         }
-        return new Enumeration();
+        return new Iteration();
     }
 
-    public Enumeration enumerateRandom(int seed){
-        return new EnumerationRandom(seed);
+    public Iterator enumerateRandom(int seed){
+        return new IterateRandom(seed);
     }
 
-    public Enumeration enumerateRandom(){
-        return new EnumerationRandom();
+    public Iterator enumerateRandom(){
+        return new IterateRandom();
     }
 
     //inner class
-    private class EnumerationRandom implements java.util.Enumeration {
+    private class IterateRandom implements java.util.Iterator {
         AEntity[] aEntities = getAll();
         int[] range = IntStream.rangeClosed(0, aEntities.length-1).toArray();
         ArrayList<Integer> arrayList = new ArrayList<>();
 
-        public EnumerationRandom(int seed){
+        public IterateRandom(int seed){
             for(Integer i:range){arrayList.add(i);}
             Collections.shuffle(arrayList, new Random(seed));
         }
 
-        public EnumerationRandom(){
+        public IterateRandom(){
             for(Integer i:range){arrayList.add(i);}
             Collections.shuffle(arrayList, new Random());
         }
 
         @Override
-        public boolean hasMoreElements() {
+        public boolean hasNext() {
             return !arrayList.isEmpty();
         }
+
         @Override
-        public Object nextElement() {
+        public Object next() {
             AEntity temp = aEntities[arrayList.get(0)];
             arrayList.remove(0);
             return temp;
@@ -216,5 +221,89 @@ public class EntitySet {
         private void setPrev(EntityElement prev) { this.prev = prev;}
 
         private AEntity getData(){return data;}
+    }
+
+    // Collection
+    @Override
+    public int size() {
+        return length();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return length()<1;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        AEntity aEntity;
+        try {
+            aEntity = (AEntity) o;
+        }
+        catch (Exception e){
+            return false;
+        }
+        return (get(aEntity.getID()) != null);
+    }
+
+    @Override
+    public Iterator iterator() {
+        return null;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return getAll();
+    }
+
+    @Override
+    public boolean add(Object o) {
+        AEntity aEntity;
+        try {
+            aEntity = (AEntity) o;
+        }
+        catch (Exception e){
+            return false;
+        }
+        return put(aEntity);
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        AEntity aEntity;
+        try {
+            aEntity = (AEntity) o;
+        }
+        catch (Exception e){
+            return false;
+        }
+        return (pull(aEntity.getID()) != null);
+    }
+
+    // not suported
+
+    @Override
+    public boolean addAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean retainAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection c) {
+        return false;
+    }
+
+    @Override
+    public Object[] toArray(Object[] a) {
+        return new Object[0];
     }
 }

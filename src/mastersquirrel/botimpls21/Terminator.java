@@ -1,7 +1,9 @@
 package mastersquirrel.botimpls21;
 
+import mastersquirrel.Log;
+
 public class Terminator {
     public Terminator() {
-        System.out.println("created Terminator");
+        Log.log("Created Terminator");
     }
 }

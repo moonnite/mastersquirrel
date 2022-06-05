@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Enumeration;
+import java.util.Iterator;
 
 public class EntitySetTest {
 
@@ -105,9 +106,9 @@ public class EntitySetTest {
 
         boolean condition = false;
 
-        Enumeration e = entitySet.enumerateForward();
-        for (int i = 0; e.hasMoreElements(); i++){
-            AEntity aEntity = (AEntity)e.nextElement();
+        Iterator e = entitySet.iterateForward();
+        for (int i = 0; e.hasNext(); i++){
+            AEntity aEntity = (AEntity)e.next();
             condition = (aEntity.getID() == aEntities[i].getID());
         }
         assertTrue(condition);
@@ -123,9 +124,9 @@ public class EntitySetTest {
 
         boolean condition = false;
 
-        Enumeration e = entitySet.enumerateBackward();
-        for (int i = 1; e.hasMoreElements(); i++){
-            AEntity aEntity = (AEntity)e.nextElement();
+        Iterator e = entitySet.enumerateBackward();
+        for (int i = 1; e.hasNext(); i++){
+            AEntity aEntity = (AEntity)e.next();
             condition = (aEntity.getID() == aEntities[aEntities.length-i].getID());
         }
         assertTrue(condition);
@@ -141,10 +142,10 @@ public class EntitySetTest {
 
         boolean condition = false;
 
-        Enumeration e = entitySet.enumerateRandom(42069);
+        Iterator e = entitySet.enumerateRandom(42069);
 
-        for (int i = 0; e.hasMoreElements(); i++){
-            AEntity aEntity = (AEntity)e.nextElement();
+        for (int i = 0; e.hasNext(); i++){
+            AEntity aEntity = (AEntity)e.next();
             condition = (aEntity.getID() == aEntities[i].getID());
         }
         assertTrue(condition);

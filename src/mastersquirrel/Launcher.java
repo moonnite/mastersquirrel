@@ -7,8 +7,13 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import mastersquirrel.util.ui.*;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 
 public class Launcher extends Application {
 
@@ -44,11 +49,25 @@ public class Launcher extends Application {
                 0,
                 0);
 
+        Log log = new Log();
+        //Log.addHandler(new ConsoleHandler());
+        try {
+            FileHandler fileHandler = new FileHandler("./logfile",true);
+            Log.addHandler(fileHandler);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fileHandler.setFormatter(formatter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.log("BotMode: " + boardConfig.botMode);
+        Log.log("Created Bots: " + boardConfig.bots.toString());
+        Log.log("Created Board with size: " + boardConfig.BOARD_SIZE.toString());
+
         Board board = new Board(boardConfig);
         State state = new State(board);
         State.setRemainingSteps(boardConfig.botSteps);
         State.setBotState(boardConfig.botMode);
-
 
         if (args.length != 0 && args[0].equals("-console")) {
             System.out.println("Running on console:");
@@ -56,7 +75,7 @@ public class Launcher extends Application {
             game = new GameImpl(state,ui);
             startGame(state.getBoard().flatten());
         } else {
-            System.out.println("Running on GUI:");
+            Log.log("Running on GUI");
             //run GUI view of game
             ui = new FxUI();
             game = new GameImpl(state,ui);
@@ -75,7 +94,7 @@ public class Launcher extends Application {
 
         Timer timer = new Timer();
 
-        System.out.print("Starting Game");
+        Log.log("Starting Game...");
 
         timer.scheduleAtFixedRate(new TimerTask() {
             int i = 0;
@@ -85,11 +104,11 @@ public class Launcher extends Application {
                 i++;
                 if (i == 4) {
                     timer.cancel();
-                    System.out.println();
+                    //System.out.println();
                     game.run(board);
                     return;
                 }
-                System.out.print(".");
+                //System.out.print(".");
             }
         }, 0, (int) waitFor);
     }

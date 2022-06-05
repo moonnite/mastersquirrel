@@ -1,5 +1,6 @@
 package mastersquirrel.botimpls21;
 
+import mastersquirrel.Log;
 import mastersquirrel.RandomDirection;
 import mastersquirrel.XY;
 import mastersquirrel.entities.bots.botapi.BotController;
@@ -9,7 +10,7 @@ import mastersquirrel.entities.bots.botapi.ControllerContext;
 public class Asam implements BotControllerFactory {
 
     public Asam() {
-        System.out.println("Created Asam");
+        Log.log("Created Asam");
     }
 
     @Override
